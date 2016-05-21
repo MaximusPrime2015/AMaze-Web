@@ -3,12 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <servlet>
-        <servlet-name>MainServlet</servlet-name>
-        <servlet-class>MainServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>MainServlet</servlet-name>
-        <url-pattern>/noice</url-pattern>
-    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>FormServlet</welcome-file>
+    </welcome-file-list>
 </web-app>

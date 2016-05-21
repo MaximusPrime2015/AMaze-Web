@@ -6,11 +6,17 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>
-            My first page
-        </title>
+        <title>My Form</title>
     </head>
     <body>
-        Hello world
+        <form action="FormServlet" method="post">
+            <div>Username:</div>
+            <input type="text" name="username"/>
+            <div>Password:</div>
+            <input type="password" name="password"/>
+            <div>
+                <input type="submit"/>
+            </div>               
+        </form>
     </body>
 </html>
