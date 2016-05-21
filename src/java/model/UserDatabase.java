@@ -14,9 +14,17 @@ import java.util.List;
  */
 public class UserDatabase {
     private List<User> users;
+    private static UserDatabase instance = null;
     
-    public UserDatabase(){
+    private UserDatabase(){
         this.users = new ArrayList();
+    }
+    
+    public UserDatabase getInstance(){
+        if(this.instance == null){
+            instance = new UserDatabase();
+        }
+        return instance;
     }
     
     public void addUser(User user){
