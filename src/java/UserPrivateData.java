@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
+import model.UserDatabase;
 
 /**
  *
@@ -20,12 +21,8 @@ public class UserPrivateData extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<User> list = new ArrayList<>();
-        list.add(new User("DanTheMan","123"));
-        list.add(new User("Jerald","Arr"));
-        list.add(new User("Georgi","georg"));
-
-        request.getSession().setAttribute("list", list);
+        request.getSession().setAttribute("list",
+                UserDatabase.getInstance().getList());
         request.getRequestDispatcher("Data.jsp").forward(request, response);
     }
 }

@@ -4,6 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <welcome-file-list>
-        <welcome-file>FormServlet</welcome-file>
+        <welcome-file>LoginServlet</welcome-file>
     </welcome-file-list>
 </web-app>

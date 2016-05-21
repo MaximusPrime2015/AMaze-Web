@@ -16,11 +16,11 @@
     </head>
     <body>
         <div>
-            <div>Your balance:</div>
+            <div>Users:</div>
             <%List<User> list = (ArrayList) session.getAttribute("list");
                 for (User r : list) {%>
-                <div><%= r.getName()%></div>
-                <div><%= r.getPassword()%></div>
+                <div><%= r.getUsername()%></div>
+                <div><%= r.getProfile()%></div>
             <%}%>
         </div>
     </body>

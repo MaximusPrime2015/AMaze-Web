@@ -1,4 +1,3 @@
-
 package model;
 
 /**
@@ -6,40 +5,65 @@ package model;
  * @author Max
  */
 public class User {
-    private String name;
+
+    private String username;
     private String password;
-    
-    public User(String name, String password){
-        this.name = name;
+    private String realName;
+    private String email;
+    private String profile;
+
+    public User(String username, String password, String realName,
+            String email, String profile) {
+        this.username = username;
         this.password = password;
+        this.realName = realName;
+        this.email = email;
+        this.profile = profile;
     }
-    
-    public String getName(){
-        return this.name;
+
+    public String getUsername() {
+        return this.username;
     }
-    
+
     public String getPassword() {
         return this.password;
     }
-    
-    public boolean compareName(String name){
-        return this.name.equals(name);
+
+    public String getRealName() {
+        return this.realName;
     }
-    
-    @Override
-    public int hashCode(){
-        return name.hashCode();
+
+    public String getEmail() {
+        return this.email;
     }
-    
+
+    public String getProfile() {
+        return this.profile;
+    }
+
+    public boolean compareUsername(String username) {
+        return this.username.equals(username);
+    }
+
     @Override
-    public boolean equals(Object other){
-        if(this == other) return true;
-        if(other == null) return false;
-        
-        if(other instanceof User){
-            User usr = (User)other;
-            return this.name.equals(usr.getName())
-                  && this.password.equals(usr.getPassword());
+    public int hashCode() {
+        return username.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+
+        if (other instanceof User) {
+            User usr = (User) other;
+            return this.username.equals(usr.getUsername())
+                    && this.password.equals(usr.getPassword())
+                    && this.email.equals(usr.getEmail());
         }
         return false;
     }

@@ -13,7 +13,7 @@
         <title>My Form</title>
     </head>
     <body>
-        <form action="FormServlet" method="post">
+        <form action="LoginServlet" method="post">
             <%
                 Calendar cal = Calendar.getInstance();
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
@@ -24,6 +24,7 @@
             <div>Password:</div>
             <input type="password" name="password"/>
             <div><input type="submit"/></div>
+            <div><a href="Register.jsp">Register</a></div>
             <% if (request.getAttribute("error") != null
              && (Boolean) request.getAttribute("error")) {%>
             <div>Wrong username/password. Please try again</div>
