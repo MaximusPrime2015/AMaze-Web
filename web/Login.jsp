@@ -1,7 +1,7 @@
 <%-- 
     Document   : Login
     Created on : May 21, 2016, 6:04:10 PM
-    Author     : Max
+    Author     : Max & Michael
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -32,8 +32,8 @@
                     </tr>
                     <tr>
                         <th></th>
-                        <th><input id="button" type="submit" value="log in">
-                            <button id="button" onclick="window.location:'Register.jsp'">register</button>
+                        <th><input id="button" type="submit" value="Log in">
+                            <a id="button" href="Register.jsp">Register</a>
                         </th>
                     </tr>
                 </table>
