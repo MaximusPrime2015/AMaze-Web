@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register</title>
         <link rel="stylesheet" href="styles.css">
+        <script src="scripts.js"></script>
     </head>
     <body style="background-image:url(http://www.hdwallpapery.com/static/images/background-wallpapers-26_fXb5f3k.jpg);background-size:cover;">
         <!-- HEADER PART -->
@@ -21,23 +22,31 @@
         <!-- BODY PART -->
         <div id="redCenteredAlphaShadows">
             <h3 align="center">Register</h3>
-            <form action="RegisterServlet" method="post">
+            <form name="registerForm" action="RegisterServlet" method="post" onsubmit="return validateRegistrationForm()">
                 <table border="0">
                     <tr align="center">
                         <th align="center"><div>&nbsp;&nbsp;Username :</div></th>
-                        <th align="center"><input id="input" type="text" name="username"/></th>
+                        <th align="center"><input id="input" type="text" name="username"/>
+                            <image id="userNameValid" src="images/error.png" style="visibility: hidden"/>
+                        </th>
                     </tr>
                     <tr align="center">
                         <th align="center"><div>&nbsp;&nbsp;Password :</div></th>
-                        <th align="center"><input id="input" type="password" name="password"/></th>
+                        <th align="center"><input id="input" type="password" name="password"/>
+                            <image id="passValid" src="images/error.png" style="visibility: hidden"/>
+                        </th>
                     </tr>
                     <tr align="center">
                         <th align="center"><div>&nbsp;&nbsp;Real Name :</div></th>
-                        <th align="center"><input id="input" type="text" name="real_name"/></th>
+                        <th align="center"><input id="input" type="text" name="real_name"/>
+                            <image id="nameValid" src="images/error.png" style="visibility: hidden"/>
+                        </th>
                     </tr>
                     <tr align="center">
                         <th align="center"><div>&nbsp;&nbsp;Email :</div></th>
-                        <th align="center"><input id="input" type="text" name="email"/></th>
+                        <th align="center"><input id="input" type="text" name="email"/>
+                            <image id="emailValid" src="images/error.png" style="visibility: hidden"/>
+                        </th>
                     </tr>
                     <tr align="center">
                         <th align="center"><div>&nbsp;&nbsp</div></th>
@@ -46,19 +55,19 @@
                         <th align="center"><div>&nbsp;&nbsp;Profile Picture :&nbsp;&nbsp;</div></th>
                         <th align="center">
                             <div>
-                                <input type="radio" name="ico1"><image src="images/ico1.png"/>
+                                <input type="radio" checked="true" name="icons" value="ico1"><image src="images/ico1.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico2"><image src="images/ico2.png"/>
+                                <input type="radio" name="icons" value="ico2"><image src="images/ico2.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico3"><image src="images/ico3.png"/>
+                                <input type="radio" name="icons" value="ico3"><image src="images/ico3.png"/>
                             </div>
                             <br>
                             <div>
-                                <input type="radio" name="ico4"><image src="images/ico4.png"/>
+                                <input type="radio" name="icons" value="ico4"><image src="images/ico4.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico5"><image src="images/ico5.png"/>
+                                <input type="radio" name="icons" value="ico5"><image src="images/ico5.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico6"><image src="images/ico6.png"/>
+                                <input type="radio" name="icons" value="ico6"><image src="images/ico6.png"/>
                             </div>
                         </th>
                     </tr>
