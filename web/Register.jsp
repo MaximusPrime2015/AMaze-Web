@@ -48,17 +48,17 @@
                             <div>
                                 <input type="radio" name="ico1"><image src="images/ico1.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico2"><image src="images/ico1.png"/>
+                                <input type="radio" name="ico2"><image src="images/ico2.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico3"><image src="images/ico1.png"/>
+                                <input type="radio" name="ico3"><image src="images/ico3.png"/>
                             </div>
                             <br>
                             <div>
-                                <input type="radio" name="ico4"><image src="images/ico1.png"/>
+                                <input type="radio" name="ico4"><image src="images/ico4.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico5"><image src="images/ico1.png"/>
+                                <input type="radio" name="ico5"><image src="images/ico5.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico6"><image src="images/ico1.png"/>
+                                <input type="radio" name="ico6"><image src="images/ico6.png"/>
                             </div>
                         </th>
                     </tr>
