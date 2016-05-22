@@ -23,12 +23,12 @@
             <form action="LoginServlet" method="post">
                 <table border="0">
                     <tr align="center">
-                        <th align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name</td>
-                        <th align="center"><input id="input" type="text" name="username" /></td> 
+                        <th align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name</th>
+                        <th align="center"><input id="input" type="text" name="username" /></th> 
                     </tr>
                     <tr>
-                        <th align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password&nbsp;&nbsp;</td>
-                        <th align="center"><input id="input" type="password" name="password" ></td> 
+                        <th align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password&nbsp;&nbsp;</th>
+                        <th align="center"><input id="input" type="password" name="password" ></th> 
                     </tr>
                     <tr>
                         <th></th>
