@@ -23,7 +23,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("Login.jsp");
+        HttpSession session = ((HttpServletRequest) request).getSession(false);
+        if (session != null) {
+            response.sendRedirect("secured/Menu");
+        }
+        else {
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        }
     }
 
     @Override

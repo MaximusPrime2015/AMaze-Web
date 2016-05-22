@@ -5,7 +5,6 @@
  */
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("Register.jsp");
+        request.getRequestDispatcher("Register.jsp").forward(request, response);
     }
 
     @Override
@@ -36,10 +35,14 @@ public class RegisterServlet extends HttpServlet {
                     request.getParameter("password"),
                     request.getParameter("real_name"),
                     request.getParameter("email"),
-                    request.getParameter("profile"));
+                    request.getParameter("icons"));
         
         HttpSession session = request.getSession();
-        response.sendRedirect("secure/UserPrivateData");
+        session.setAttribute("name", request.getParameter("real_name"));
+        session.setAttribute("email", request.getParameter("email"));
+        session.setAttribute("pic", request.getParameter("icons"));
+        
+        response.sendRedirect("secure/Menu");
         /*
         if (db.validateUser(username, password)) {
             HttpSession session = request.getSession();

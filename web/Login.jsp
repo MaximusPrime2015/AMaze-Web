@@ -33,7 +33,7 @@
                     <tr>
                         <th></th>
                         <th><input id="button" type="submit" value="Log in">
-                            <a id="button" href="Register.jsp">Register</a>
+                            <a id="button" href="RegisterServlet">Register</a>
                         </th>
                     </tr>
                 </table>
