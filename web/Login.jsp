@@ -11,7 +11,7 @@
         <title>Log In Page</title>
         <link rel="stylesheet" href="styles.css">
     </head>
-    <body style="background-image:url(http://almaqtari.net/wp-content/uploads/2014/04/galaxy-background-twitter.jpg)">
+    <body style="background-image:url(http://www.hdwallpapery.com/static/images/background-wallpapers-26_fXb5f3k.jpg);background-size:cover;">
         <!-- HEADER PART -->
         <div id="darkRedAlphaShadows">
             <h1>AMaze-ing</h1>
@@ -23,12 +23,12 @@
             <form action="LoginServlet" method="post">
                 <table border="0">
                     <tr align="center">
-                        <th align="left">Name</td>
-                        <th><input id="input" type="text" name="username" /></td> 
+                        <th align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name</td>
+                        <th align="center"><input id="input" type="text" name="username" /></td> 
                     </tr>
                     <tr>
-                        <th align="left">Password&nbsp;&nbsp;</td>
-                        <th><input id="input" type="password" name="password" ></td> 
+                        <th align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password&nbsp;&nbsp;</td>
+                        <th align="center"><input id="input" type="password" name="password" ></td> 
                     </tr>
                     <tr>
                         <th></th>
