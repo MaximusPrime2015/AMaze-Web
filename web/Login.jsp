@@ -4,31 +4,49 @@
     Author     : Max
 --%>
 
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>My Form</title>
+        <title>Log In Page</title>
+        <link rel="stylesheet" href="styles.css">
     </head>
-    <body>
-        <form action="LoginServlet" method="post">
-            <%
-                Calendar cal = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                out.println("<div>Current time: " + sdf.format(cal.getTime()) + "</div>");
-            %>
-            <div>Username:</div>
-            <input type="text" name="username"/>
-            <div>Password:</div>
-            <input type="password" name="password"/>
-            <div><input type="submit"/></div>
-            <div><a href="Register.jsp">Register</a></div>
+    <body style="background-image:url(http://almaqtari.net/wp-content/uploads/2014/04/galaxy-background-twitter.jpg)">
+        <!-- HEADER PART -->
+        <div id="darkRedAlphaShadows">
+            <h1>AMaze-ing</h1>
+        </div>
+        
+        <!-- BODY PART -->
+        <div id="redCenteredAlphaShadows">
+            <h3 align="center">Log in</h3>
+            <form action="LoginServlet" method="post">
+                <table border="0">
+                    <tr align="center">
+                        <th align="left">Name</td>
+                        <th><input id="input" type="text" name="username" /></td> 
+                    </tr>
+                    <tr>
+                        <th align="left">Password&nbsp;&nbsp;</td>
+                        <th><input id="input" type="password" name="password" ></td> 
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th><input id="button" type="submit" value="log in">
+                            <button id="button" onclick="window.location:'Register.jsp'">register</button>
+                        </th>
+                    </tr>
+                </table>
+            </form>
             <% if (request.getAttribute("error") != null
-             && (Boolean) request.getAttribute("error")) {%>
-            <div>Wrong username/password. Please try again</div>
+            && (Boolean) request.getAttribute("error")) {%>
+                <div style="color:white;">Wrong username/password. Please try again</div>
             <% }%>
-        </form>
+        </div>
+        
+        <!-- FOOTER PART -->
+        <div id="footer">
+            Copyright © Michael & Max
+        </div>
     </body>
 </html>
