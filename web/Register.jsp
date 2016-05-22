@@ -46,19 +46,19 @@
                         <th align="center"><div>&nbsp;&nbsp;Profile Picture :&nbsp;&nbsp;</div></th>
                         <th align="center">
                             <div>
-                                <input type="radio" name="ico1"><image src="https://cdn4.iconfinder.com/data/icons/6x16-free-application-icons/16/In-yang.png"/>
+                                <input type="radio" name="ico1"><image src="images/ico1.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico2"><image src="https://cdn4.iconfinder.com/data/icons/6x16-free-application-icons/16/Smile.png"/>
+                                <input type="radio" name="ico2"><image src="images/ico1.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico3"><image src="https://cdn4.iconfinder.com/data/icons/6x16-free-application-icons/16/Radiation.png"/>
+                                <input type="radio" name="ico3"><image src="images/ico1.png"/>
                             </div>
                             <br>
                             <div>
-                                <input type="radio" name="ico4"><image src="https://cdn4.iconfinder.com/data/icons/6x16-free-application-icons/16/Alien.png"/>
+                                <input type="radio" name="ico4"><image src="images/ico1.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico5"><image src="https://cdn4.iconfinder.com/data/icons/6x16-free-application-icons/16/Boss.png"/>
+                                <input type="radio" name="ico5"><image src="images/ico1.png"/>
                                 &nbsp;&nbsp;
-                                <input type="radio" name="ico6"><image src="https://cdn4.iconfinder.com/data/icons/6x16-free-application-icons/16/Female.png"/>
+                                <input type="radio" name="ico6"><image src="images/ico1.png"/>
                             </div>
                         </th>
                     </tr>
