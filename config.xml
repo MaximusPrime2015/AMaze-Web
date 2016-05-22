@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <add key="port" value="55000" />
+  <add key="ip" value="127.0.0.1" />
+  <add key="rows" value="8" />
+  <add key="cols" value="24" />
+</root>
