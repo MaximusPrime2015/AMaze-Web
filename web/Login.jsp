@@ -11,7 +11,7 @@
         <title>Log In Page</title>
         <link rel="stylesheet" href="styles.css">
     </head>
-    <body style="background-image:url(http://www.hdwallpapery.com/static/images/background-wallpapers-26_fXb5f3k.jpg);background-size:cover;">
+    <body style="background-image:url(http://i.imgur.com/nBp49hp.jpg);background-size:cover;">
         <!-- HEADER PART -->
         <div id="darkRedAlphaShadows">
             <h1>AMaze-ing</h1>
