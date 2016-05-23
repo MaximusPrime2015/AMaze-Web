@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         if (session != null) {
-            response.sendRedirect("secure/Menu");
+            response.sendRedirect("secured/Menu");
         }
         else {
             request.getRequestDispatcher("Login.jsp").forward(request, response);

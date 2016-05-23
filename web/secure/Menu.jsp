@@ -28,8 +28,8 @@
         <!-- BODY PART -->
         <div id="redCenteredAlphaShadows">
             <br>
-            <a id="button" href="Singleplayer">Singleplayer</a><br><br>
-            <a id="button" href="Multiplayer">Multiplayer</a><br><br>
+            <a id="button" href="SinglePlayer">SinglePlayer</a><br><br>
+            <a id="button" href="SinglePlayer">MultiPlayer</a><br><br>
         </div>
         
         <!-- FOOTER PART -->
