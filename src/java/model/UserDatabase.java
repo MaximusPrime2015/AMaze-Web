@@ -13,7 +13,7 @@ import java.util.List;
  * @author Max
  */
 public class UserDatabase {
-    private List<User> users;
+    private final List<User> users;
     private static UserDatabase instance = null;
     
     private UserDatabase(){
@@ -21,7 +21,7 @@ public class UserDatabase {
     }
     
     public static UserDatabase getInstance(){
-        if(UserDatabase.instance == null){
+        if (UserDatabase.instance == null) {
             instance = new UserDatabase();
         }
         return instance;
@@ -36,9 +36,9 @@ public class UserDatabase {
         this.users.add(new User(name, password, realName, email, profile));
     }
     
-    public User getUser(String username){
+    public User getUser(String username) {
         for (User user : this.users) {
-            if(user.compareUsername(username))
+            if (user.compareUsername(username))
                 return user;
         }
         return null;
