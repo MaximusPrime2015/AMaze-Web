@@ -40,7 +40,7 @@
             </form>
             <% if (request.getAttribute("error") != null
             && (Boolean) request.getAttribute("error")) {%>
-                <div style="color:white;">Wrong username/password. Please try again</div>
+                <div style="color:white;">Wrong username/password. Please try again.</div>
             <% }%>
         </div>
         
