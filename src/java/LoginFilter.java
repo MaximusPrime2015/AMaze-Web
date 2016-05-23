@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Max
  */
-@WebFilter(filterName = "LoginFilter", urlPatterns = {"/secured/*"})
+@WebFilter(filterName = "LoginFilter", urlPatterns = {"/secure/*"})
 public class LoginFilter implements Filter {
 
     @Override
