@@ -44,6 +44,7 @@ public class LoginServlet extends HttpServlet {
         if (db.validateUser(username, password)) {
             HttpSession session = request.getSession();
             User user = db.getUser(username);
+            session.setAttribute("username", user.getUsername());
             session.setAttribute("name", user.getRealName());
             session.setAttribute("pic", user.getProfile());
             response.sendRedirect("secure/Menu");

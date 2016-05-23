@@ -43,6 +43,7 @@ public class RegisterServlet extends HttpServlet {
                     request.getParameter("icons"));
         
         HttpSession session = request.getSession();
+        session.setAttribute("username", request.getParameter("username"));
         session.setAttribute("name", request.getParameter("real_name"));
         session.setAttribute("email", request.getParameter("email"));
         session.setAttribute("pic", request.getParameter("icons"));
