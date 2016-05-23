@@ -22,7 +22,7 @@
         <div id="darkRedAlphaShadows" style="position: absolute; right:20px;">
                 <%=name%>&nbsp;&nbsp;
                 <image src="../images/<%=image%>.png"/>&nbsp;&nbsp;&nbsp;
-                <button id="button">Disconnect</button>
+                <a href="DisconnectServlet" id="button">Disconnect</a>
             </div>
         
         <!-- BODY PART -->

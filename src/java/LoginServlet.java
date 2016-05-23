@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.User;
 import model.UserDatabase;
 
 /**
@@ -24,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
-        if (session != null) {
+        if (session != null && session.getAttribute("name") != null) {
             response.sendRedirect("secure/Menu");
         }
         else {
@@ -42,7 +43,10 @@ public class LoginServlet extends HttpServlet {
         
         if (db.validateUser(username, password)) {
             HttpSession session = request.getSession();
-            response.sendRedirect("secure/UserPrivateData");
+            User user = db.getUser(username);
+            session.setAttribute("name", user.getRealName());
+            session.setAttribute("pic", user.getProfile());
+            response.sendRedirect("secure/Menu");
         } else {
             request.setAttribute("error", true);
             request.getRequestDispatcher("Login.jsp").forward(request, response);

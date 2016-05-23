@@ -23,13 +23,18 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Register.jsp").forward(request, response);
+                HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("name") != null) {
+            response.sendRedirect("secure/Menu");
+        }
+        else {
+            request.getRequestDispatcher("Register.jsp").forward(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         UserDatabase db = UserDatabase.getInstance();
         db.addUser(request.getParameter("username"),
                     request.getParameter("password"),
@@ -43,15 +48,5 @@ public class RegisterServlet extends HttpServlet {
         session.setAttribute("pic", request.getParameter("icons"));
         
         response.sendRedirect("secure/Menu");
-        /*
-        if (db.validateUser(username, password)) {
-            HttpSession session = request.getSession();
-            response.sendRedirect("secure/UserPrivateData");
-        } else {
-            request.setAttribute("error", true);
-            request.getRequestDispatcher("Register.jsp").forward(request, response);
-
-        }
-        */
     }
 }
