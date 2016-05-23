@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author user
  */
-@WebServlet(name = "MenuServlet", urlPatterns = {"/secured/Menu"})
+@WebServlet(name = "MenuServlet", urlPatterns = {"/secure/Menu"})
 public class MenuServlet extends HttpServlet {
     
     @Override
