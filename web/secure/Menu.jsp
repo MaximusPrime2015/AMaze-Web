@@ -11,19 +11,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Game Menu</title>
         <link rel="stylesheet" href="../styles.css">
+        <script src="../scripts.js"></script>
     </head>
-    <body style="background-image:url(http://www.hdwallpapery.com/static/images/background-wallpapers-26_fXb5f3k.jpg);background-size:cover;">
+    <body style="background-image:url(http://i.imgur.com/nBp49hp.jpg);">
         <!-- HEADER PART -->
+        <% String username = session.getAttribute("username").toString(); %>
         <% String name = session.getAttribute("name").toString(); %>
         <% String image = session.getAttribute("pic").toString(); %>
         <div id="darkRedAlphaShadows">
             <h1>AMaze-ing</h1>
         </div>
         <div id="darkRedAlphaShadows" style="position: absolute; right:20px;">
-                <%=name%>&nbsp;&nbsp;
-                <image src="../images/<%=image%>.png"/>&nbsp;&nbsp;&nbsp;
-                <button id="button">Disconnect</button>
-            </div>
+            <%=username%>&nbsp;-&nbsp;
+            <%=name%>&nbsp;&nbsp;
+            <image src="../images/<%=image%>.png"/>&nbsp;&nbsp;&nbsp;
+            <a href="DisconnectServlet" id="button">Disconnect</a>
+        </div>
         
         <!-- BODY PART -->
         <div id="redCenteredAlphaShadows">
