@@ -47,6 +47,13 @@
     width:140px;
 }
 
+.input {
+    border-radius: 5px;
+    padding:3px;
+    border: 1px solid rgba(0,0,0,0.3);
+    width:140px;
+}
+
 #button {
     background-color: #C70039;
     border: none;
@@ -69,4 +76,12 @@
 th {
     text-align: left;
     color: white;
+}
+
+.canvasStyle {
+    border:1px solid #000000;
+    background-color:rgba(245,245,245,0.75);
+    border-radius: 6px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    margin: 2px;
 }
