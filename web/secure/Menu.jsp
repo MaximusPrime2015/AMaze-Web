@@ -25,14 +25,14 @@
             <%=username%>&nbsp;-&nbsp;
             <%=name%>&nbsp;&nbsp;
             <image src="../images/<%=image%>.png"/>&nbsp;&nbsp;&nbsp;
-            <a href="DisconnectServlet" id="button">Disconnect</a>
+            <a href="DisconnectServlet" class="button">Disconnect</a>
         </div>
         
         <!-- BODY PART -->
         <div id="redCenteredAlphaShadows">
             <br>
-            <a id="button" href="Singleplayer">Singleplayer</a><br><br>
-            <a id="button" href="Multiplayer">Multiplayer</a><br><br>
+            <a class="button" href="Singleplayer">Singleplayer</a><br><br>
+            <a class="button" href="Multiplayer">Multiplayer</a><br><br>
         </div>
         
         <!-- FOOTER PART -->

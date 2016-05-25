@@ -11,7 +11,7 @@
         <title>Log In Page</title>
         <link rel="stylesheet" href="styles.css">
     </head>
-    <body style="background-image:url(http://i.imgur.com/nBp49hp.jpg);background-size:cover;">
+    <body style="background-image:url(http://i.imgur.com/nBp49hp.jpg);">
         <!-- HEADER PART -->
         <div id="darkRedAlphaShadows">
             <h1>AMaze-ing</h1>
@@ -32,8 +32,8 @@
                     </tr>
                     <tr>
                         <th></th>
-                        <th><input id="button" type="submit" value="Log in">
-                            <a id="button" href="RegisterServlet">Register</a>
+                        <th><input class="button" type="submit" value="Log in">
+                            <a class="button" href="RegisterServlet">Register</a>
                         </th>
                     </tr>
                 </table>

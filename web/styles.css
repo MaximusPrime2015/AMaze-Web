@@ -54,7 +54,7 @@
     width:140px;
 }
 
-#button {
+.button {
     background-color: #C70039;
     border: none;
     border-radius: 4px;
@@ -69,8 +69,13 @@
     transition-duration: 0.25s;
 }
 
-#button:hover {
+.button:hover {
     background-color: #4CAF50;
+}
+
+.button:disabled {
+    background-color: #334455;
+    cursor: default;
 }
 
 th {
@@ -80,7 +85,7 @@ th {
 
 .canvasStyle {
     border:1px solid #000000;
-    background-color:rgba(245,245,245,0.75);
+    background-color:rgba(245,245,245,0.65);
     border-radius: 6px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     margin: 2px;

@@ -17,29 +17,36 @@ var pRow = 0;
 var pCol = 0;
 var Start = null, End = null;
 
-function onCreateSinglePlayerMazeClicked(r, c) {
-    var x = document.getElementById("mazeName");
-    if (x.value === "") {
-        alert("enter a name for the maze.");
-        return;
-    }
+function printLoading() {
+    c = document.getElementById("mazeCanvas");
+    var ctx = c.getContext("2d");
+    ctx.font = "60px Tahoma";
+    ctx.fillStyle = "#444444";
+    ctx.fillText("Loading...",40,130);
+    ctx.fillStyle = "#000000";
+    ctx.fillText("Loading...",37,128);
+}
+
+function onCreateSinglePlayerMazeClicked(ro, co) {
+    c = document.getElementById("mazeCanvas");
     var text = '{"Type":2,"Content":{"Name":"iM","Maze":"222220000100*00100021112111111121111102100210100222001010211121011121011101021002222222101010002111010101011101011200101010101222222221111111111121110122220010000002001012012111110111211111201200100010120012221121111111012111210002220010022200121011012111112111112110101200101200100200011121110121111121101002222222001002000111010101011111211000001010101#222200","Start":{"Row":0,"Col":12},"End":{"Row":18,"Col":12}}}';
     obj = JSON.parse(text);
     maze = obj.Content.Maze;
-    rows = r;
-    cols = c;
+    rows = ro;
+    cols = co;
     Start = obj.Content.Start;
     End = obj.Content.End;
     pRow = Start.Row;
     pCol = Start.Col;
    
-    c = document.getElementById("mazeCanvas");
     img = document.getElementById("userPic");
     bW = c.width / (cols + 2);
     bH = c.height / (rows + 2);
     drawMazeOnCanvas();
     drawPlayer();
-    // send x to servlet and get JSON answer
+    drawPlayer();
+    document.getElementById("restartBtn").disabled = false;
+    document.getElementById("hintBtn").disabled = false;
 }
 
 function drawMazeOnCanvas() {
@@ -92,6 +99,8 @@ function drawMazeOnCanvas() {
 }
 
 function drawPlayer() {
+    c = document.getElementById("mazeCanvas");
+    img = document.getElementById("userPic");
     var ctx = c.getContext("2d");
     ctx.globalCompositeOperation = 'source-over';
     ctx.drawImage(img, bW + bW * pCol, bH + bH * pRow, bW, bH);
@@ -108,4 +117,16 @@ function movePlayer(rowDir, colDir) {
     
     drawMazeOnCanvas();
     drawPlayer();
+}
+
+function keyPressed(e) {
+    var key = e.keyCode ? e.keyCode : e.which;
+    if (key === 39)// right
+        movePlayer(0,1);
+    else if (key === 37)// left
+        movePlayer(0,-1);
+    else if (key === 38)// up
+        movePlayer(-1,0);
+    else if (key === 40)// down
+        movePlayer(1,0);
 }

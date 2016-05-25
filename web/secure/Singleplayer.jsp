@@ -15,17 +15,7 @@
         <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-
 a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
         <script>
-            window.onkeydown = function(e) {
-                var key = e.keyCode ? e.keyCode : e.which;
-                if (key === 39)// right
-                    movePlayer(0,1);
-                else if (key === 37)// left
-                    movePlayer(0,-1);
-                else if (key === 38)// up
-                    movePlayer(-1,0);
-                else if (key === 40)// down
-                    movePlayer(1,0);
-            }
+            window.onkeydown = function(e) { keyPressed(e);}
         </script>
     </head>
     <body style="background-image:url(http://i.imgur.com/nBp49hp.jpg);">
@@ -40,21 +30,22 @@ a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
             <%=username%>&nbsp;-&nbsp;
             <%=name%>&nbsp;&nbsp;
             <image id="userPic" src="../images/<%=image%>.png"/>&nbsp;&nbsp;&nbsp;
-            <a href="DisconnectServlet" id="button">Disconnect</a>
+            <a href="DisconnectServlet" class="button">Disconnect</a>
         </div>
         <div id="darkRedAlphaShadows" style="position: absolute; left:20px;">
-            <a href="Menu" id="button">Back To Menu</a>
+            <a href="Menu" class="button">Back To Menu</a>
+            <button id="restartBtn" class="button" disabled onclick="onCreateSinglePlayerMazeClicked(19,19)">Restart</button>
+            <button id="hintBtn" class="button" disabled onclick="getHint()">Hint</button>
         </div>
             
         <!-- BODY PART -->
         <center>
-            <br>
-            <div id="darkRedAlphaShadows" style="width: 420px;border: rgba(0,0,0,0.4) solid 1px">
-                name
-                &nbsp;<input id="mazeName" class="input" type="text" value=""/>
-                &nbsp;&nbsp;&nbsp;<button id="button" onclick="onCreateSinglePlayerMazeClicked(19,19)">Create</button>
-            </div>
-            <canvas id="mazeCanvas" width="400" height="400" class="canvasStyle"/>
+            <br><canvas id="mazeCanvas" width="400" height="400" class="canvasStyle"/>
         </center>
+    <script>
+        printLoading();
+        // long poll request for maze
+        onCreateSinglePlayerMazeClicked(19,19);
+    </script>
     </body>
 </html>

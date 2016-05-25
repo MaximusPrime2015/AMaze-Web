@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="styles.css">
         <script src="scripts.js"></script>
     </head>
-    <body style="background-image:url(http://i.imgur.com/nBp49hp.jpg);background-size:cover;">
+    <body style="background-image:url(http://i.imgur.com/nBp49hp.jpg);">
         <!-- HEADER PART -->
         <div id="darkRedAlphaShadows">
             <h1>AMaze-ing</h1>
@@ -73,7 +73,7 @@
                     </tr>
                     <tr align="center">
                         <th></th>
-                        <th align="right"><br><div><input id="button" type="submit" value="Register"/></div></th>
+                        <th align="right"><br><div><input class="button" type="submit" value="Register"/></div></th>
                     </tr>
                 </table>
             </form>
