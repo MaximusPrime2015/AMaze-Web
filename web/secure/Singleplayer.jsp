@@ -35,7 +35,7 @@ a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
         <div id="darkRedAlphaShadows" style="position: absolute; left:20px;">
             <a href="Menu" class="button">Back To Menu</a>
             <button id="restartBtn" class="button" disabled onclick="onCreateSinglePlayerMazeClicked(19,19)">Restart</button>
-            <button id="hintBtn" class="button" disabled onclick="getHint()">Hint</button>
+            <button id="hintBtn" class="button" disabled onclick="drawHint()">Hint</button>
         </div>
             
         <!-- BODY PART -->

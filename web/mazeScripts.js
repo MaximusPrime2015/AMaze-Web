@@ -16,6 +16,9 @@ var cols = 0;
 var pRow = 0;
 var pCol = 0;
 var Start = null, End = null;
+var won = false;
+
+var solPath = [];
 
 function printLoading() {
     c = document.getElementById("mazeCanvas");
@@ -36,9 +39,10 @@ function onCreateSinglePlayerMazeClicked(ro, co) {
     cols = co;
     Start = obj.Content.Start;
     End = obj.Content.End;
+    fillSolPath(maze, Start, End);
     pRow = Start.Row;
     pCol = Start.Col;
-   
+    won = false;
     img = document.getElementById("userPic");
     bW = c.width / (cols + 2);
     bH = c.height / (rows + 2);
@@ -47,6 +51,31 @@ function onCreateSinglePlayerMazeClicked(ro, co) {
     drawPlayer();
     document.getElementById("restartBtn").disabled = false;
     document.getElementById("hintBtn").disabled = false;
+}
+
+var currHint = -1;
+
+function fillSolPath(mazeSol, mStart, mEnd) {
+    solPath = [];
+    solPath[0] = mStart;
+    solPath[1] = mStart;
+    var i = 1;
+    while (solPath[i].Row != mEnd.Row || solPath[i].Col != mEnd.Col) {
+        if (mazeSol[(solPath[i].Row + 1) * cols + (solPath[i].Col)] == '2'
+                && (solPath[i].Row + 1 != solPath[i-1].Row || solPath[i].Col != solPath[i-1].Col))
+            solPath[i+1] = {Row:solPath[i].Row + 1, Col:solPath[i].Col};
+        else if (mazeSol[(solPath[i].Row - 1) * cols + (solPath[i].Col)] == '2'
+                && (solPath[i].Row - 1 != solPath[i-1].Row || solPath[i].Col != solPath[i-1].Col))
+            solPath[i+1] = {Row:solPath[i].Row - 1, Col:solPath[i].Col};
+        else if (mazeSol[(solPath[i].Row) * cols + (solPath[i].Col + 1)] == '2'
+                && (solPath[i].Row != solPath[i-1].Row || solPath[i].Col + 1 != solPath[i-1].Col))
+            solPath[i+1] = {Row:solPath[i].Row, Col:solPath[i].Col + 1};
+        else
+            solPath[i+1] = {Row:solPath[i].Row, Col:solPath[i].Col - 1};
+        i++;
+    }
+    onTheSolPath = true;
+    currHint = 2;
 }
 
 function drawMazeOnCanvas() {
@@ -104,16 +133,50 @@ function drawPlayer() {
     var ctx = c.getContext("2d");
     ctx.globalCompositeOperation = 'source-over';
     ctx.drawImage(img, bW + bW * pCol, bH + bH * pRow, bW, bH);
+    
+    if (won == true) {
+        ctx.fillStyle = "#FFAAAA";
+        ctx.fillRect(50, 50, 300, 200);
+        ctx.fillStyle = "#906090";
+        ctx.fillRect(45, 45, 300, 200);
+        ctx.fillStyle = "#FFAAAA";
+        ctx.fillText("You Won!", 70, 150);
+    }
 }
 
+var onTheSolPath = true;
+
 function movePlayer(rowDir, colDir) {
+    if (won == true)
+        return;
     pRow += rowDir;
     pCol += colDir;
     
     if (pRow < 0 || pRow >= rows || pCol < 0 || pCol >= cols || maze[pRow * cols + pCol] == '1') {
         pRow -=rowDir;
         pCol -=colDir;
-    } 
+        return;
+    }
+    
+    if (maze[pRow * cols + pCol] == '2' && onTheSolPath) {
+        if (solPath[currHint].Row == pRow && solPath[currHint].Col == pCol)
+            currHint++;
+        else
+            currHint--;
+    }
+    else if (maze[pRow * cols + pCol] != '2' && onTheSolPath) {
+        currHint--;
+        onTheSolPath = false;
+    }
+    else if (maze[pRow * cols + pCol] == '2' && !onTheSolPath) {
+        currHint++;
+        onTheSolPath = true;
+    }
+    if (currHint < 2) currHint = 2;
+    
+    if (pRow == End.Row && pCol == End.Col) {
+        won = true;
+    }
     
     drawMazeOnCanvas();
     drawPlayer();
@@ -129,4 +192,15 @@ function keyPressed(e) {
         movePlayer(-1,0);
     else if (key === 40)// down
         movePlayer(1,0);
+}
+
+function drawHint() {
+    c = document.getElementById("mazeCanvas");
+    var ctx = c.getContext("2d");
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = "#FF2020";
+    var i = solPath[currHint].Row;
+    var j = solPath[currHint].Col;
+    ctx.fillRect(j*bW + bW,i*bH + bH / 3 + bH,bW ,bH);
+    ctx.globalCompositeOperation = 'source-over';
 }
