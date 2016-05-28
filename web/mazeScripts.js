@@ -73,19 +73,19 @@ function fillSolPath(mazeSol, mStart, mEnd) {
     solPath[1] = mStart;
     var i = 1;
     while (solPath[i].Row != mEnd.Row || solPath[i].Col != mEnd.Col) {
-        if (mazeSol[(solPath[i].Row + 1) * cols + (solPath[i].Col)] == '2'
+        if ((mazeSol[(solPath[i].Row + 1) * cols + (solPath[i].Col)] == '2' || mazeSol[(solPath[i].Row + 1) * cols + (solPath[i].Col)] == '#')
                 && (solPath[i].Row + 1 != solPath[i-1].Row || solPath[i].Col != solPath[i-1].Col))
             solPath[i+1] = {Row:solPath[i].Row + 1, Col:solPath[i].Col};
-        else if (mazeSol[(solPath[i].Row - 1) * cols + (solPath[i].Col)] == '2'
+        else if ((mazeSol[(solPath[i].Row - 1) * cols + (solPath[i].Col)] == '2' || mazeSol[(solPath[i].Row - 1) * cols + (solPath[i].Col)] == '#')
                 && (solPath[i].Row - 1 != solPath[i-1].Row || solPath[i].Col != solPath[i-1].Col))
             solPath[i+1] = {Row:solPath[i].Row - 1, Col:solPath[i].Col};
-        else if (mazeSol[(solPath[i].Row) * cols + (solPath[i].Col + 1)] == '2'
+        else if ((mazeSol[(solPath[i].Row) * cols + (solPath[i].Col + 1)] == '2' || mazeSol[(solPath[i].Row) * cols + (solPath[i].Col + 1)] == '#')
                 && (solPath[i].Row != solPath[i-1].Row || solPath[i].Col + 1 != solPath[i-1].Col))
             solPath[i+1] = {Row:solPath[i].Row, Col:solPath[i].Col + 1};
         else
             solPath[i+1] = {Row:solPath[i].Row, Col:solPath[i].Col - 1};
         i++;
-        if (i==200) {
+        if (i==300) {
             alert("200");
             break;
         }
