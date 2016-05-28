@@ -85,6 +85,10 @@ function fillSolPath(mazeSol, mStart, mEnd) {
         else
             solPath[i+1] = {Row:solPath[i].Row, Col:solPath[i].Col - 1};
         i++;
+        if (i==200) {
+            alert("200");
+            break;
+        }
     }
     onTheSolPath = true;
     currHint = 2;
@@ -107,7 +111,6 @@ function drawMazeOnCanvas() {
         ctx.fillRect(0,j*bH,bW ,bH);
         ctx.fillRect(c.width - bW,j*bH,bW ,bH);
     }
-    
     // draw walls
     for(i=0;i<rows;i++) {
         for(j=0;j<cols;j++) {

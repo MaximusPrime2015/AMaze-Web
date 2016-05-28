@@ -1,10 +1,12 @@
 package model.server;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Observable;
 
 /**
@@ -15,36 +17,38 @@ public class SocketCommunicator extends Observable{
     private Socket server;
     private Thread listenerThread;
     private DataOutputStream outToServer;
-    private BufferedReader inFromServer;
+    private DataInputStream inFromServer;
 
     public SocketCommunicator(String serverIP, int serverPort) throws IOException {
         this.server = new Socket(serverIP, serverPort);
         this.outToServer = new DataOutputStream(server.getOutputStream());
-        this.inFromServer = new BufferedReader(
-                new InputStreamReader(server.getInputStream()));
+        this.inFromServer = new DataInputStream(server.getInputStream());
+        this.listenerThread = new Thread(new RunnableListener(this));
+        this.listenerThread.start();
     }
 
     public boolean establishConnection() {
-        if (this.server.isConnected()) {
-            return true;
-        }
-        if (this.listenerThread != null) {
-            return false;
-        }
-
-        try {
-            this.listenerThread = new Thread(new RunnableListener(this));
-            this.listenerThread.start();
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
+//        if (this.server.isConnected()) {
+//            return true;
+//        }
+//        if (this.listenerThread != null) {
+//            return false;
+//        }
+//
+//        try {
+//            this.listenerThread = new Thread(new RunnableListener(this));
+//            this.listenerThread.start();
+//            return true;
+//        } catch (Exception ex) {
+//            return false;
+//        }
+        return true;
     }
 
     public boolean SendRequest(String request) {
         if (this.server.isConnected() && request != null) {
             try {
-                this.outToServer.writeBytes(request + '\n');
+                this.outToServer.write(request.getBytes(), 0, request.getBytes().length);
                 return true;
             } catch (Exception ex) {
             }
@@ -57,14 +61,17 @@ public class SocketCommunicator extends Observable{
         
         while (true) {
             try {
-                response = this.inFromServer.readLine();
-                int len = response.length();
+                byte[] b = new byte[4096];
+                int len = this.inFromServer.read(b);
+                //int len = response.length();
                 if (len == 0) {
                     // server closed
                     notifyObservers(null);
                     break;
                 }
+                response = new String(b);
                 //this.OnResponse(response);
+                this.setChanged();
                 notifyObservers(response);
             } catch (Exception ex) {
                 // server closed

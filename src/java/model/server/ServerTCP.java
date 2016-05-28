@@ -30,6 +30,8 @@ public class ServerTCP extends Observable implements Observer, Server {
 
     public ServerTCP(String ip, int port) throws IOException {
         this.server = new SocketCommunicator(ip, port);
+        this.server.addObserver(this);
+        this.isClosed = false;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class ServerTCP extends Observable implements Observer, Server {
     @Override
     public void update(Observable o, Object arg) {
         if (!this.isClosed) {
+            this.setChanged();
             notifyObservers(arg);
         }
     }
