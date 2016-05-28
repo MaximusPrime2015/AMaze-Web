@@ -20,7 +20,7 @@ public class UserDatabase {
         this.users = new ArrayList();
     }
     
-    public static UserDatabase getInstance(){
+    public synchronized static UserDatabase getInstance(){
         if (UserDatabase.instance == null) {
             instance = new UserDatabase();
         }

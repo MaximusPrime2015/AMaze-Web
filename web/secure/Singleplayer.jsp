@@ -34,7 +34,7 @@ a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
         </div>
         <div id="darkRedAlphaShadows" style="position: absolute; left:20px;">
             <a href="Menu" class="button">Back To Menu</a>
-            <button id="restartBtn" class="button" disabled onclick="onCreateSinglePlayerMazeClicked(19,19)">Restart</button>
+            <button id="restartBtn" class="button" disabled onclick="restartCurrentMaze()">Restart</button>
             <button id="hintBtn" class="button" disabled onclick="drawHint()">Hint</button>
         </div>
             
@@ -45,7 +45,8 @@ a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
     <script>
         printLoading();
         // long poll request for maze
-        onCreateSinglePlayerMazeClicked(19,19);
+        requestSinglePlayerMaze();
+        // onCreateSinglePlayerMazeClicked(19,19);
     </script>
     </body>
 </html>

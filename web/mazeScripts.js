@@ -30,15 +30,27 @@ function printLoading() {
     ctx.fillText("Loading...",37,128);
 }
 
-function onCreateSinglePlayerMazeClicked(ro, co) {
+function requestSinglePlayerMaze() {
+    $.getJSON("GetSinglePlayerMaze", function( data ) {
+        createSinglePlayerMazeClicked(data, 19, 19, true);
+    });
+}
+
+function restartCurrentMaze() {
+    createSinglePlayerMazeClicked(maze,rows,cols,false);
+}
+
+function createSinglePlayerMazeClicked(mazeStr, ro, co, isNew) {
     c = document.getElementById("mazeCanvas");
-    var text = '{"Type":2,"Content":{"Name":"iM","Maze":"222220000100*00100021112111111121111102100210100222001010211121011121011101021002222222101010002111010101011101011200101010101222222221111111111121110122220010000002001012012111110111211111201200100010120012221121111111012111210002220010022200121011012111112111112110101200101200100200011121110121111121101002222222001002000111010101011111211000001010101#222200","Start":{"Row":0,"Col":12},"End":{"Row":18,"Col":12}}}';
-    obj = JSON.parse(text);
-    maze = obj.Content.Maze;
+    if (isNew) {
+        maze = mazeStr.Content.Maze;
+    }
     rows = ro;
     cols = co;
-    Start = obj.Content.Start;
-    End = obj.Content.End;
+    if (isNew) {
+        Start = mazeStr.Content.Start;
+        End = mazeStr.Content.End;
+    }
     fillSolPath(maze, Start, End);
     pRow = Start.Row;
     pCol = Start.Col;
