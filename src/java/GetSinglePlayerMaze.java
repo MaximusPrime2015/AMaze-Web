@@ -28,7 +28,6 @@ import model.server.ServerTCP;
 public class GetSinglePlayerMaze extends HttpServlet implements Observer {
 
     ServerTCP server;
-    
     Dictionary<String, AsyncContext> usersWaiting = new Hashtable<String, AsyncContext>();
     
     @Override
