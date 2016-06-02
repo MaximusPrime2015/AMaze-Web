@@ -2,6 +2,7 @@
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -30,6 +31,7 @@ public class GetMultiplayerMazes extends HttpServlet implements Observer {
 
     ServerTCP server;
     private String gameName;
+    private JsonObject multiplayerData;
     Dictionary<String, AsyncContext> usersWaiting = new Hashtable<String, AsyncContext>();
     
     @Override
@@ -49,12 +51,12 @@ public class GetMultiplayerMazes extends HttpServlet implements Observer {
         request.setAttribute("org.apache.catalina.ASYNC_SUPPORTED", true);
         AsyncContext async = request.startAsync(request, response);
         async.setTimeout(0);
-        this.usersWaiting.put(gameName, async);
+        this.addToWaitingQueue(gameName, async);
         server.sendRequest("multiplayer " + this.gameName);
     }
     
     private void addToWaitingQueue(String user, AsyncContext async){
-        if(this.usersWaiting.get(user) != null){
+        if(this.usersWaiting.get(user+"_1") != null){
             this.usersWaiting.put(user+"_2", async);
             return;
         }
@@ -74,22 +76,46 @@ public class GetMultiplayerMazes extends HttpServlet implements Observer {
         JsonObject object = jsonReader.readObject();
         jsonReader.close();
         String mazeName;
-        if (object.get("Type").toString().equals("1")) {
-            mazeName = object.getJsonObject("Content").getString("Name");
-            server.sendRequest("solve " + mazeName + " 1");
-        } else if (object.get("Type").toString().equals("2")) {
-            try {
+        
+        if (object.get("Type").toString().equals("2")) {
+            /*
+            try {  
+                
                 mazeName = object.getJsonObject("Content").getString("Name");
                 AsyncContext asyncContext = this.usersWaiting.get(mazeName);
                 HttpServletResponse peer = (HttpServletResponse) asyncContext.getResponse();
                 peer.setContentType("application/json");
-                peer.getWriter().write(object.toString());
+                //System.out.println("mp solve: "+object.getJsonObject("Content"));
+                
+                // generate new json object containing the solved maze of the client
+                JsonObject responseObj = Json.createObjectBuilder()
+                        .add("firstName",Json.createObjectBuilder()
+                                .add("Name", this.multiplayerData.getString("Name"))
+                                .add("MazeName", this.multiplayerData.getString("MazeName"))
+                                .add("You", object.getJsonObject("Content"))
+                                .add("Other", this.multiplayerData.getString("Other"))
+                                )
+                        .build();
+                
+                //System.out.println("mp response: "+object.getJsonObject("Content"));
+                peer.getWriter().write(responseObj.toString());
                 peer.getWriter().flush();
                 peer.setStatus(HttpServletResponse.SC_OK);
                 asyncContext.complete();
             } catch (IOException ex) {
                 Logger.getLogger(GetSinglePlayerMaze.class.getName()).log(Level.SEVERE, null, ex);
             }
+            */
+        } else if(object.get("Type").toString().equals("3")){
+            /*
+            //System.out.println("multiplayer started");
+            this.multiplayerData = object.getJsonObject("Content");
+            mazeName = this.multiplayerData.getString("MazeName");
+            this.server.sendRequest("solve " + mazeName + " 1");
+            */
+            
+        } else if(object.get("Type").toString().equals("4")){
+            
         }
     }
 }

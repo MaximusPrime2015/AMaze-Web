@@ -50,7 +50,7 @@ a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
                 <tr>
                     <th><canvas id="mazeCanvas" width="400" height="400" class="canvasStyle"/></th>
                     <th> <div id="darkRedAlphaShadows"><h2>VS</h2></div></th>
-                    <th><canvas id="mazeCanvas" width="400" height="400" class="canvasStyle"/></th>
+                    <th><canvas id="opponentMazeCanvas" width="400" height="400" class="canvasStyle"/></th>
                 </tr>
             </table>
         </center>

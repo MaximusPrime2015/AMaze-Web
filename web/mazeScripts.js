@@ -11,14 +11,15 @@ var bH = 0;
 var c = null;
 var img = null;
 var maze = null;
-var localMaze = null;
 var opponentMaze = null;
 var rows = 0;
 var cols = 0;
 var pRow = 0;
 var pCol = 0;
 var Start = null, End = null;
+var opponentStart = null, opponentEnd = null;
 var won = false;
+var lost = false;
 
 var solPath = [];
 
@@ -50,9 +51,9 @@ function multiplayerConnect(){
         type : "POST"
     });
     
-    //$.getJSON("GetMultiplayerMazes", function( data ) {
-    //    createSinglePlayerMazeClicked(data, 19, 19, true);
-    //});
+    $.getJSON("GetMultiplayerMazes", function( data ) {
+        createMultiplayerMazes(data, 19, 19, true);
+    });
 }
 
 function restartCurrentMaze() {
@@ -63,13 +64,11 @@ function createSinglePlayerMazeClicked(mazeStr, ro, co, isNew) {
     c = document.getElementById("mazeCanvas");
     if (isNew) {
         maze = mazeStr.Content.Maze;
-    }
-    rows = ro;
-    cols = co;
-    if (isNew) {
         Start = mazeStr.Content.Start;
         End = mazeStr.Content.End;
     }
+    rows = ro;
+    cols = co;
     fillSolPath(maze, Start, End);
     pRow = Start.Row;
     pCol = Start.Col;
@@ -77,14 +76,40 @@ function createSinglePlayerMazeClicked(mazeStr, ro, co, isNew) {
     img = document.getElementById("userPic");
     bW = c.width / (cols + 2);
     bH = c.height / (rows + 2);
-    drawMazeOnCanvas();
-    drawPlayer();
-    drawPlayer();
+    drawMazeOnCanvas(maze, "mazeCanvas");
+    drawPlayer("mazeCanvas");
+    drawPlayer("mazeCanvas");
     document.getElementById("restartBtn").disabled = false;
     document.getElementById("hintBtn").disabled = false;
 }
 
-function createMultiplayerMazes(localMaze, OpponentMaze, ro, co, isNew){
+function createMultiplayerMazes(multiplayerData, ro, co, isNew){
+    c = document.getElementById("mazeCanvas");
+    if (isNew) {
+        maze = multiplayerData.Content.You.Maze;
+        opponentMaze = multiplayerData.Content.Other.Maze;
+        
+        Start = multiplayerData.Content.You.Start;
+        End = multiplayerData.Content.You.End;
+        
+        opponentStart = multiplayerData.Content.Other.Start;
+        opponentEnd = multiplayerData.Content.Other.End;
+    }
+    rows = ro;
+    cols = co;
+    fillSolPath(maze, Start, End);
+    pRow = Start.Row;
+    pCol = Start.Col;
+    
+    won = false;
+    img = document.getElementById("userPic");
+    bW = c.width / (cols + 2);
+    bH = c.height / (rows + 2);
+    drawMazeOnCanvas(maze, "mazeCanvas");
+    drawMazeOnCanvas(opponentMaze, "opponentMazeCanvas");
+    drawPlayer("mazeCanvas");
+    drawPlayer("opponentMazeCanvas");
+    document.getElementById("hintBtn").disabled = false;
 }
 
 var currHint = -1;
@@ -116,8 +141,8 @@ function fillSolPath(mazeSol, mStart, mEnd) {
     currHint = 2;
 }
 
-function drawMazeOnCanvas() {
-    c = document.getElementById("mazeCanvas");
+function drawMazeOnCanvas(maze, canvas) {
+    c = document.getElementById(canvas);
     var ctx = c.getContext("2d");
     ctx.clearRect(0,0,c.width ,c.height);
     // draw borders
@@ -164,8 +189,8 @@ function drawMazeOnCanvas() {
     }
 }
 
-function drawPlayer() {
-    c = document.getElementById("mazeCanvas");
+function drawPlayer(canvas) {
+    c = document.getElementById(canvas);
     img = document.getElementById("userPic");
     var ctx = c.getContext("2d");
     ctx.globalCompositeOperation = 'source-over';
@@ -183,7 +208,7 @@ function drawPlayer() {
 
 var onTheSolPath = true;
 
-function movePlayer(rowDir, colDir) {
+function movePlayer(canvas,rowDir, colDir) {
     if (won == true)
         return;
     pRow += rowDir;
@@ -215,20 +240,20 @@ function movePlayer(rowDir, colDir) {
         won = true;
     }
     
-    drawMazeOnCanvas();
-    drawPlayer();
+    drawMazeOnCanvas(maze,canvas);
+    drawPlayer(canvas);
 }
 
-function keyPressed(e) {
+function keyPressed(e,canvas) {
     var key = e.keyCode ? e.keyCode : e.which;
     if (key === 39)// right
-        movePlayer(0,1);
+        movePlayer(canvas,0,1);
     else if (key === 37)// left
-        movePlayer(0,-1);
+        movePlayer(canvas,0,-1);
     else if (key === 38)// up
-        movePlayer(-1,0);
+        movePlayer(canvas,-1,0);
     else if (key === 40)// down
-        movePlayer(1,0);
+        movePlayer(canvas,1,0);
 }
 
 function drawHint() {
