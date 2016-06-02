@@ -1,6 +1,7 @@
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -22,12 +23,13 @@ import model.server.ServerTCP;
 
 /**
  *
- * @author user
+ * @author Max
  */
-@WebServlet(name = "GetSinglePlayerMaze", urlPatterns = {"/secure/GetSinglePlayerMaze"}, asyncSupported=true)
-public class GetSinglePlayerMaze extends HttpServlet implements Observer {
+@WebServlet(name = "GetMultiplayerMazes", urlPatterns = {"/secure/GetMultiplayerMazes"}, asyncSupported=true)
+public class GetMultiplayerMazes extends HttpServlet implements Observer {
 
     ServerTCP server;
+    private String gameName;
     Dictionary<String, AsyncContext> usersWaiting = new Hashtable<String, AsyncContext>();
     
     @Override
@@ -40,25 +42,29 @@ public class GetSinglePlayerMaze extends HttpServlet implements Observer {
     public void destroy() {
         this.server.deleteObserver(this);
     }
-
-    @Override
+    
+        @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String mazeName = GetRandomName();
         request.setAttribute("org.apache.catalina.ASYNC_SUPPORTED", true);
         AsyncContext async = request.startAsync(request, response);
         async.setTimeout(0);
-        this.usersWaiting.put(mazeName, async);
-        server.sendRequest("generate " + mazeName + " 1");
+        this.usersWaiting.put(gameName, async);
+        server.sendRequest("multiplayer " + this.gameName);
     }
     
-    private String GetRandomName() {
-        String name = "maze_";
-        Random rnd = new Random();
-        for (int i = 0; i < 5; i++) {
-            name += ('a' + rnd.nextInt(25));
+    private void addToWaitingQueue(String user, AsyncContext async){
+        if(this.usersWaiting.get(user) != null){
+            this.usersWaiting.put(user+"_2", async);
+            return;
         }
-        return name;
+        this.usersWaiting.put(user+"_1", async);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        this.gameName = request.getParameter("name");
     }
 
     @Override
@@ -81,7 +87,6 @@ public class GetSinglePlayerMaze extends HttpServlet implements Observer {
                 peer.getWriter().flush();
                 peer.setStatus(HttpServletResponse.SC_OK);
                 asyncContext.complete();
-                usersWaiting.remove(mazeName);
             } catch (IOException ex) {
                 Logger.getLogger(GetSinglePlayerMaze.class.getName()).log(Level.SEVERE, null, ex);
             }

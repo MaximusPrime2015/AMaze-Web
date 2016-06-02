@@ -45,3 +45,8 @@ function validateRegistrationForm() {
         return true;
     return false;
 }
+
+function clearName(){
+    var gameName = document.getElementById('game_name');
+    gameName.style.backgroundColor = "white";
+}

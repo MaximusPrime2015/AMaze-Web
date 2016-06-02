@@ -11,6 +11,8 @@ var bH = 0;
 var c = null;
 var img = null;
 var maze = null;
+var localMaze = null;
+var opponentMaze = null;
 var rows = 0;
 var cols = 0;
 var pRow = 0;
@@ -34,6 +36,23 @@ function requestSinglePlayerMaze() {
     $.getJSON("GetSinglePlayerMaze", function( data ) {
         createSinglePlayerMazeClicked(data, 19, 19, true);
     });
+}
+
+function multiplayerConnect(){
+    var gameName = document.getElementById('game_name');
+    if(gameName.value == null || gameName.value == ""){
+        gameName.style.backgroundColor = "red";
+        return;
+    }
+    $.ajax({
+        data : {name:gameName.value},
+        url: "GetMultiplayerMazes",
+        type : "POST"
+    });
+    
+    //$.getJSON("GetMultiplayerMazes", function( data ) {
+    //    createSinglePlayerMazeClicked(data, 19, 19, true);
+    //});
 }
 
 function restartCurrentMaze() {
@@ -63,6 +82,9 @@ function createSinglePlayerMazeClicked(mazeStr, ro, co, isNew) {
     drawPlayer();
     document.getElementById("restartBtn").disabled = false;
     document.getElementById("hintBtn").disabled = false;
+}
+
+function createMultiplayerMazes(localMaze, OpponentMaze, ro, co, isNew){
 }
 
 var currHint = -1;
