@@ -22,7 +22,7 @@ import model.server.ServerTCP;
 
 /**
  *
- * @author user
+ * @author Michael
  */
 @WebServlet(name = "GetSinglePlayerMaze", urlPatterns = {"/secure/GetSinglePlayerMaze"}, asyncSupported=true)
 public class GetSinglePlayerMaze extends HttpServlet implements Observer {
@@ -30,17 +30,32 @@ public class GetSinglePlayerMaze extends HttpServlet implements Observer {
     ServerTCP server;
     Dictionary<String, AsyncContext> usersWaiting = new Hashtable<String, AsyncContext>();
     
+    /**
+     * initializes server, and adds self to its observers list.
+     * @throws ServletException
+     */
     @Override
     public void init() throws ServletException {
         this.server = ServerTCP.getInstance();
         this.server.addObserver(this);
     }
 
+    /**
+     * removes self from server's observers.
+     */
     @Override
     public void destroy() {
         this.server.deleteObserver(this);
     }
 
+    /**
+     * sends a 'generate maze' request to game server, and adds the request
+     * to a wait list.
+     * @param request http request
+     * @param response http response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,6 +67,12 @@ public class GetSinglePlayerMaze extends HttpServlet implements Observer {
         server.sendRequest("generate " + mazeName + " 1");
     }
     
+    /**
+     * Generates a random name for a singleplayer game.
+     * @return random name string
+     * @throws ServletException
+     * @throws IOException
+     */
     private String GetRandomName() {
         String name = "maze_";
         Random rnd = new Random();
@@ -61,6 +82,11 @@ public class GetSinglePlayerMaze extends HttpServlet implements Observer {
         return name;
     }
 
+    /**
+     * Handles responses from game server.
+     * @param o object to update.
+     * @param arg arguments.
+     */
     @Override
     public void update(Observable o, Object arg) {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(arg.toString().getBytes(StandardCharsets.UTF_8));

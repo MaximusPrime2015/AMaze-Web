@@ -13,19 +13,21 @@ import javax.servlet.http.HttpSession;
 import model.User;
 import model.UserDatabase;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
- * @author Max
+ * @author Max/Michael
  */
 @WebFilter(filterName = "LoginFilter", urlPatterns = {"/secure/*"}, asyncSupported=true)
 public class LoginFilter implements Filter {
 
+    /**
+     * Checks that a user can access certain pages.
+     * @param request http request
+     * @param response http response
+     * @param chain filter chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -43,11 +45,19 @@ public class LoginFilter implements Filter {
         }
     }
 
+    /**
+     * Does nothing.
+     * function from interface.
+     * @param filterConfig
+     * @throws ServletException
+     */
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
+    /**
+     * Does nothing.
+     * function from interface.
+     */
     @Override
-    public void destroy() {
-    }
+    public void destroy() {}
 }

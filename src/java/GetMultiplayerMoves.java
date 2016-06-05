@@ -13,11 +13,18 @@ import model.UserDatabase;
 
 /**
  *
- * @author user
+ * @author Michael
  */
 @WebServlet(name = "GetMultiplayerMoves", urlPatterns = {"/secure/GetMultiplayerMoves"}, asyncSupported=true)
 public class GetMultiplayerMoves extends HttpServlet {
     
+    /**
+     * wait for move from other user.
+     * @param request http request
+     * @param response http response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,6 +36,13 @@ public class GetMultiplayerMoves extends HttpServlet {
         user.requestOthersMove(async);
     }
     
+    /**
+     * sends movement information to game server.
+     * @param request http request
+     * @param response http response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

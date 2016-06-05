@@ -15,11 +15,19 @@ import model.UserDatabase;
 
 /**
  *
- * @author Max
+ * @author Max/Michael
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
 
+    /**
+     * redirects to menu page if there exists a session,
+     * otherwise redirects to registration page.
+     * @param request http request
+     * @param response http response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,6 +40,14 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
+    /**
+     * pulls user details from session, creates a new entry in the database,
+     * and redirects to menu page.
+     * @param request http request
+     * @param response http response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

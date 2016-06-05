@@ -13,6 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SingleplayerServlet", urlPatterns = {"/secure/Singleplayer"})
 public class SingleplayerServlet extends HttpServlet {
 
+    /**
+     * redirects to singleplayer page.
+     * @param request http request
+     * @param response http response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

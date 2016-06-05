@@ -11,6 +11,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "MultiplayerServlet", urlPatterns = {"/secure/Multiplayer"})
 public class MultiplayerServlet extends HttpServlet {
+
+    /**
+     * redirects to multiplayer page.
+     * @param request http request
+     * @param response http response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

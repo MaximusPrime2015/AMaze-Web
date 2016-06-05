@@ -11,11 +11,18 @@ import model.UserDatabase;
 
 /**
  *
- * @author user
+ * @author Michael/Max
  */
 @WebServlet(name = "MenuServlet", urlPatterns = {"/secure/Menu"})
 public class MenuServlet extends HttpServlet {
     
+    /**
+     * closes connection with server.
+     * @param request http request
+     * @param response http response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

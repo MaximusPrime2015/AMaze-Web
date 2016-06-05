@@ -13,11 +13,21 @@ import model.UserDatabase;
 
 /**
  *
- * @author user
+ * @author Max/Michael
  */
 @WebServlet(name = "GetMultiplayerMaze", urlPatterns = {"/secure/GetMultiplayerMaze"}, asyncSupported=true)
 public class GetMultiplayerMaze extends HttpServlet {
     
+    private volatile boolean createNewName = true;
+    private String oldName;
+    
+    /**
+     * Sends a multiplayer game request to game server.
+     * @param request Http request
+     * @param response Http response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,9 +40,12 @@ public class GetMultiplayerMaze extends HttpServlet {
         user.requestMultiPlayerGame(mazeName, async);
     }
     
-    private volatile boolean createNewName = true;
-    private String oldName;
-    
+    /**
+     * Generates a random name for a multiplayer game.
+     * @return random name string
+     * @throws ServletException
+     * @throws IOException
+     */
     private synchronized String GetRandomName() {
         if (createNewName) {
             createNewName = false;

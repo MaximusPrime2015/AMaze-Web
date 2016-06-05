@@ -8,11 +8,18 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author user
+ * @author Max/Michael
  */
 @WebServlet(name = "DisconnectServlet", urlPatterns = {"/secure/DisconnectServlet"})
 public class DisconnectServlet extends HttpServlet {
 
+    /**
+     * redirects to login page after disconnection.
+     * @param request Http request
+     * @param response Htt response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

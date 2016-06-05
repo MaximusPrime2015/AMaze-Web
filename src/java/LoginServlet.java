@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -16,11 +11,19 @@ import model.UserDatabase;
 
 /**
  *
- * @author Max
+ * @author Max/Michael
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
+    /**
+     * redirects users to login screen if session has ended,
+     * or redirects to Menu page after a successful login.
+     * @param request http request.
+     * @param response http response.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,6 +36,14 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+    /**
+     * validates user login details, and sets them in the session.
+     * if user details are invalid they are redirected to login page.
+     * @param request http request.
+     * @param response http response.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
