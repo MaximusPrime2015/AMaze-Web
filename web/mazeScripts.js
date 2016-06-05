@@ -4,33 +4,19 @@
  * and open the template in the editor.
  */
 
-//$("head").append('<script type="text/javascript" src="' + script + '"></script>');
-
-var bW = 0;
-var bH = 0;
-var c = null;
-var img = null;
-var maze = null;
-var opponentMaze = null;
-var rows = 0;
-var cols = 0;
-var pRow = 0;
-var pCol = 0;
-var Start = null, End = null;
-var opponentStart = null, opponentEnd = null;
-var won = false;
-var lost = false;
-
-var solPath = [];
-
-function printLoading() {
-    c = document.getElementById("mazeCanvas");
+function printMessageOnCanvas(message, canvasId, isSmaller) {
+    c = document.getElementById(canvasId);
     var ctx = c.getContext("2d");
     ctx.font = "60px Tahoma";
+    if (isSmaller)
+        ctx.font = "35px Tahoma";
     ctx.fillStyle = "#444444";
-    ctx.fillText("Loading...",40,130);
+    ctx.fillText(message,40,130);
     ctx.fillStyle = "#000000";
-    ctx.fillText("Loading...",37,128);
+    if (!isSmaller)
+        ctx.fillText(message,37,128);
+    else
+        ctx.fillText(message,39,129);
 }
 
 function requestSinglePlayerMaze() {
@@ -39,110 +25,31 @@ function requestSinglePlayerMaze() {
     });
 }
 
-function multiplayerConnect(){
-    var gameName = document.getElementById('game_name');
-    if(gameName.value == null || gameName.value == ""){
-        gameName.style.backgroundColor = "red";
-        return;
-    }
-    $.ajax({
-        data : {name:gameName.value},
-        url: "GetMultiplayerMazes",
-        type : "POST"
-    });
-    
-    $.getJSON("GetMultiplayerMazes", function( data ) {
-        createMultiplayerMazes(data, 19, 19, true);
-    });
-}
+//function multiplayerConnect(){
+//    var gameName = document.getElementById('game_name');
+//    if(gameName.value == null || gameName.value == ""){
+//        gameName.style.backgroundColor = "red";
+//        return;
+//    }
+//    $.ajax({
+//        data : {name:gameName.value},
+//        url: "GetMultiplayerMazes",
+//        type : "POST"
+//    });
+//    
+//    $.getJSON("GetMultiplayerMazes", function( data ) {
+//        createMultiplayerMazes(data, 19, 19, true);
+//    });
+//}
 
 function restartCurrentMaze() {
     createSinglePlayerMazeClicked(maze,rows,cols,false);
 }
 
-function createSinglePlayerMazeClicked(mazeStr, ro, co, isNew) {
-    c = document.getElementById("mazeCanvas");
-    if (isNew) {
-        maze = mazeStr.Content.Maze;
-        Start = mazeStr.Content.Start;
-        End = mazeStr.Content.End;
-    }
-    rows = ro;
-    cols = co;
-    fillSolPath(maze, Start, End);
-    pRow = Start.Row;
-    pCol = Start.Col;
-    won = false;
-    img = document.getElementById("userPic");
-    bW = c.width / (cols + 2);
-    bH = c.height / (rows + 2);
-    drawMazeOnCanvas(maze, "mazeCanvas");
-    drawPlayer("mazeCanvas");
-    drawPlayer("mazeCanvas");
-    document.getElementById("restartBtn").disabled = false;
-    document.getElementById("hintBtn").disabled = false;
-}
-
-function createMultiplayerMazes(multiplayerData, ro, co, isNew){
-    c = document.getElementById("mazeCanvas");
-    if (isNew) {
-        maze = multiplayerData.Content.You.Maze;
-        opponentMaze = multiplayerData.Content.Other.Maze;
-        
-        Start = multiplayerData.Content.You.Start;
-        End = multiplayerData.Content.You.End;
-        
-        opponentStart = multiplayerData.Content.Other.Start;
-        opponentEnd = multiplayerData.Content.Other.End;
-    }
-    rows = ro;
-    cols = co;
-    fillSolPath(maze, Start, End);
-    pRow = Start.Row;
-    pCol = Start.Col;
-    
-    won = false;
-    img = document.getElementById("userPic");
-    bW = c.width / (cols + 2);
-    bH = c.height / (rows + 2);
-    drawMazeOnCanvas(maze, "mazeCanvas");
-    drawMazeOnCanvas(opponentMaze, "opponentMazeCanvas");
-    drawPlayer("mazeCanvas");
-    drawPlayer("opponentMazeCanvas");
-    document.getElementById("hintBtn").disabled = false;
-}
-
-var currHint = -1;
-
-function fillSolPath(mazeSol, mStart, mEnd) {
-    solPath = [];
-    solPath[0] = mStart;
-    solPath[1] = mStart;
-    var i = 1;
-    while (solPath[i].Row !== mEnd.Row || solPath[i].Col !== mEnd.Col) {
-        if ((mazeSol[(solPath[i].Row + 1) * cols + (solPath[i].Col)] == '2' || mazeSol[(solPath[i].Row + 1) * cols + (solPath[i].Col)] == '#')
-                && (solPath[i].Row + 1 != solPath[i-1].Row || solPath[i].Col != solPath[i-1].Col))
-            solPath[i+1] = {Row:solPath[i].Row + 1, Col:solPath[i].Col};
-        else if ((mazeSol[(solPath[i].Row - 1) * cols + (solPath[i].Col)] == '2' || mazeSol[(solPath[i].Row - 1) * cols + (solPath[i].Col)] == '#')
-                && (solPath[i].Row - 1 != solPath[i-1].Row || solPath[i].Col != solPath[i-1].Col))
-            solPath[i+1] = {Row:solPath[i].Row - 1, Col:solPath[i].Col};
-        else if ((mazeSol[(solPath[i].Row) * cols + (solPath[i].Col + 1)] == '2' || mazeSol[(solPath[i].Row) * cols + (solPath[i].Col + 1)] == '#')
-                && (solPath[i].Row != solPath[i-1].Row || solPath[i].Col + 1 != solPath[i-1].Col))
-            solPath[i+1] = {Row:solPath[i].Row, Col:solPath[i].Col + 1};
-        else
-            solPath[i+1] = {Row:solPath[i].Row, Col:solPath[i].Col - 1};
-        i++;
-        if (i == 300) {
-            alert("300");
-            break;
-        }
-    }
-    onTheSolPath = true;
-    currHint = 2;
-}
-
-function drawMazeOnCanvas(maze, canvas) {
-    c = document.getElementById(canvas);
+function drawMaze(canvasId, maze, rows, cols) {
+    var c = document.getElementById(canvasId);
+    var bW = c.width / (cols + 2);
+    var bH = c.height / (rows + 2);
     var ctx = c.getContext("2d");
     ctx.clearRect(0,0,c.width ,c.height);
     // draw borders
@@ -189,14 +96,41 @@ function drawMazeOnCanvas(maze, canvas) {
     }
 }
 
-function drawPlayer(canvas) {
+function fillSolPath(mazeSol, mStart, mEnd, rows, cols) {
+    var solPath = [];
+    solPath[0] = mStart;
+    solPath[1] = mStart;
+    var i = 1;
+    while (solPath[i].Row !== mEnd.Row || solPath[i].Col !== mEnd.Col) {
+        if ((mazeSol[(solPath[i].Row + 1) * cols + (solPath[i].Col)] === '2' || mazeSol[(solPath[i].Row + 1) * cols + (solPath[i].Col)] === '#')
+                && (solPath[i].Row + 1 !== solPath[i-1].Row || solPath[i].Col !== solPath[i-1].Col))
+            solPath[i+1] = {Row:solPath[i].Row + 1, Col:solPath[i].Col};
+        else if ((mazeSol[(solPath[i].Row - 1) * cols + (solPath[i].Col)] === '2' || mazeSol[(solPath[i].Row - 1) * cols + (solPath[i].Col)] === '#')
+                && (solPath[i].Row - 1 !== solPath[i-1].Row || solPath[i].Col !== solPath[i-1].Col))
+            solPath[i+1] = {Row:solPath[i].Row - 1, Col:solPath[i].Col};
+        else if ((mazeSol[(solPath[i].Row) * cols + (solPath[i].Col + 1)] === '2' || mazeSol[(solPath[i].Row) * cols + (solPath[i].Col + 1)] === '#')
+                && (solPath[i].Row !== solPath[i-1].Row || solPath[i].Col + 1 !== solPath[i-1].Col))
+            solPath[i+1] = {Row:solPath[i].Row, Col:solPath[i].Col + 1};
+        else
+            solPath[i+1] = {Row:solPath[i].Row, Col:solPath[i].Col - 1};
+        i++;
+        if (i === 300) {
+            break;
+        }
+    }
+    return solPath;
+}
+
+function drawPlayer(canvas, pRow, pCol, rows, cols, won) {
     c = document.getElementById(canvas);
+    var bW = c.width / (cols + 2);
+    var bH = c.height / (rows + 2);
     img = document.getElementById("userPic");
     var ctx = c.getContext("2d");
     ctx.globalCompositeOperation = 'source-over';
     ctx.drawImage(img, bW + bW * pCol, bH + bH * pRow, bW, bH);
     
-    if (won == true) {
+    if (won === true) {
         ctx.fillStyle = "#FFAAAA";
         ctx.fillRect(50, 50, 300, 200);
         ctx.fillStyle = "#906090";
@@ -206,63 +140,15 @@ function drawPlayer(canvas) {
     }
 }
 
-var onTheSolPath = true;
-
-function movePlayer(canvas,rowDir, colDir) {
-    if (won == true)
-        return;
-    pRow += rowDir;
-    pCol += colDir;
-    
-    if (pRow < 0 || pRow >= rows || pCol < 0 || pCol >= cols || maze[pRow * cols + pCol] == '1') {
-        pRow -=rowDir;
-        pCol -=colDir;
-        return;
-    }
-    
-    if (maze[pRow * cols + pCol] == '2' && onTheSolPath) {
-        if (solPath[currHint].Row == pRow && solPath[currHint].Col == pCol)
-            currHint++;
-        else
-            currHint--;
-    }
-    else if (maze[pRow * cols + pCol] != '2' && onTheSolPath) {
-        currHint--;
-        onTheSolPath = false;
-    }
-    else if (maze[pRow * cols + pCol] == '2' && !onTheSolPath) {
-        currHint++;
-        onTheSolPath = true;
-    }
-    if (currHint < 2) currHint = 2;
-    
-    if (pRow == End.Row && pCol == End.Col) {
-        won = true;
-    }
-    
-    drawMazeOnCanvas(maze,canvas);
-    drawPlayer(canvas);
-}
-
-function keyPressed(e,canvas) {
-    var key = e.keyCode ? e.keyCode : e.which;
-    if (key === 39)// right
-        movePlayer(canvas,0,1);
-    else if (key === 37)// left
-        movePlayer(canvas,0,-1);
-    else if (key === 38)// up
-        movePlayer(canvas,-1,0);
-    else if (key === 40)// down
-        movePlayer(canvas,1,0);
-}
-
-function drawHint() {
-    c = document.getElementById("mazeCanvas");
+function drawHint(canvasId, HintPos, rows, cols) {
+    c = document.getElementById(canvasId);
+    var bW = c.width / (cols + 2);
+    var bH = c.height / (rows + 2);
     var ctx = c.getContext("2d");
     ctx.globalCompositeOperation = 'destination-over';
     ctx.fillStyle = "#FF2020";
-    var i = solPath[currHint].Row;
-    var j = solPath[currHint].Col;
+    var i = HintPos.Row;
+    var j = HintPos.Col;
     ctx.fillRect(j*bW + bW,i*bH + bH / 3 + bH,bW ,bH);
     ctx.globalCompositeOperation = 'source-over';
 }

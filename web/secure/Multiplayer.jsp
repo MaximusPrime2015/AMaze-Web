@@ -12,11 +12,12 @@
         <title>Multiplayer</title>
         <link rel="stylesheet" href="../styles.css">
         <script src="../mazeScripts.js"></script>
+        <script src="../multiplayerScripts.js"></script>
         <script src="../scripts.js"></script>
         <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-
 a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
         <script>
-            window.onkeydown = function(e) { keyPressed(e);}
+            window.onkeyup = function(e) { m_keyPressed(e);}
         </script>
     </head>
     <body style="background-image:url(http://i.imgur.com/nBp49hp.jpg);">
@@ -39,7 +40,7 @@ a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
             <br><br>
             Game Name:
             <input id="game_name" type="text" onclick="clearName()" />
-            <button id="connectBtn" class="button" onclick="multiplayerConnect()">Connect</button>
+            <button id="connectBtn" class="button" onclick="requestMultiPlayerMaze()">Create</button>
 
         </div>
             
@@ -48,11 +49,16 @@ a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
             <br><br><br><br><br><br>
             <table>
                 <tr>
-                    <th><canvas id="mazeCanvas" width="400" height="400" class="canvasStyle"/></th>
+                    <th><canvas id="myCanvas" width="400" height="400" class="canvasStyle"/></th>
                     <th> <div id="darkRedAlphaShadows"><h2>VS</h2></div></th>
-                    <th><canvas id="opponentMazeCanvas" width="400" height="400" class="canvasStyle"/></th>
+                    <th><canvas id="othersCanvas" width="400" height="400" class="canvasStyle"/></th>
                 </tr>
             </table>
         </center>
+        <script>
+            m_printLoading();
+            // long poll request for maze
+            m_requestMaze();
+        </script>
     </body>
 </html>

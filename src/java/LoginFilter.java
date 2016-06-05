@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.User;
+import model.UserDatabase;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,6 +32,11 @@ public class LoginFilter implements Filter {
 
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         if (session != null && session.getAttribute("name") != null) {
+            User user = UserDatabase.getInstance().getUser(session.getAttribute("username").toString());
+            if (user == null) {
+                session.invalidate();
+                ((HttpServletResponse) response).sendRedirect("/LoginServlet");
+            }
             chain.doFilter(request, response);
         } else {
             ((HttpServletResponse) response).sendRedirect("/LoginServlet");
