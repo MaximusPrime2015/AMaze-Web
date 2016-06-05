@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Max
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author 
  */
 public class UserDatabase {
     private final List<User> users;

@@ -1,17 +1,15 @@
 package model.server;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.Observable;
 
 /**
- *
- * @author Max
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author 
  */
 public class SocketCommunicator extends Observable{
     private Socket server;

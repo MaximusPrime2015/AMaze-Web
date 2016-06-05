@@ -1,7 +1,9 @@
 <%-- 
-    Document   : Singleplayer
-    Created on : May 23, 2016, 6:18:34 PM
-    Author     : Max
+    /**
+    * exe 3
+    * @author Michael Vassernis 319582888 vaserm3
+    * @author 
+    */
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

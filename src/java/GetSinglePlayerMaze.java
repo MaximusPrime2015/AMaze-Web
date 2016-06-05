@@ -1,8 +1,6 @@
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,14 +19,17 @@ import javax.servlet.http.HttpServletResponse;
 import model.server.ServerTCP;
 
 /**
- *
- * @author Michael
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author 
  */
-@WebServlet(name = "GetSinglePlayerMaze", urlPatterns = {"/secure/GetSinglePlayerMaze"}, asyncSupported=true)
+@WebServlet(name = "GetSinglePlayerMaze",
+        urlPatterns = {"/secure/GetSinglePlayerMaze"}, asyncSupported=true)
 public class GetSinglePlayerMaze extends HttpServlet implements Observer {
 
     ServerTCP server;
-    Dictionary<String, AsyncContext> usersWaiting = new Hashtable<String, AsyncContext>();
+    Hashtable<String, AsyncContext> usersWaiting
+                                = new Hashtable<String, AsyncContext>();
     
     /**
      * initializes server, and adds self to its observers list.
@@ -52,18 +53,20 @@ public class GetSinglePlayerMaze extends HttpServlet implements Observer {
      * sends a 'generate maze' request to game server, and adds the request
      * to a wait list.
      * @param request http request
-     * @param response http response
+     * @param resp http response
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
         String mazeName = GetRandomName();
         request.setAttribute("org.apache.catalina.ASYNC_SUPPORTED", true);
-        AsyncContext async = request.startAsync(request, response);
+        // get the async object for responses in the future
+        AsyncContext async = request.startAsync(request, resp);
         async.setTimeout(0);
         this.usersWaiting.put(mazeName, async);
+        // send the create request to the server
         server.sendRequest("generate " + mazeName + " 1");
     }
     
@@ -89,19 +92,24 @@ public class GetSinglePlayerMaze extends HttpServlet implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(arg.toString().getBytes(StandardCharsets.UTF_8));
+        ByteArrayInputStream byteArrayInputStream
+                = new ByteArrayInputStream(arg.toString()
+                        .getBytes(StandardCharsets.UTF_8));
         JsonReader jsonReader = Json.createReader(byteArrayInputStream);
         JsonObject object = jsonReader.readObject();
         jsonReader.close();
         String mazeName;
         if (object.get("Type").toString().equals("1")) {
+            // recieved a maze, now ask for it's solution
             mazeName = object.getJsonObject("Content").getString("Name");
             server.sendRequest("solve " + mazeName + " 1");
         } else if (object.get("Type").toString().equals("2")) {
+            // received the solution, send it to the client
             try {
                 mazeName = object.getJsonObject("Content").getString("Name");
                 AsyncContext asyncContext = this.usersWaiting.get(mazeName);
-                HttpServletResponse peer = (HttpServletResponse) asyncContext.getResponse();
+                HttpServletResponse peer = 
+                        (HttpServletResponse) asyncContext.getResponse();
                 peer.setContentType("application/json");
                 peer.getWriter().write(object.toString());
                 peer.getWriter().flush();
@@ -109,7 +117,8 @@ public class GetSinglePlayerMaze extends HttpServlet implements Observer {
                 asyncContext.complete();
                 usersWaiting.remove(mazeName);
             } catch (IOException ex) {
-                Logger.getLogger(GetSinglePlayerMaze.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GetSinglePlayerMaze.class.getName())
+                                    .log(Level.SEVERE, null, ex);
             }
         }
     }

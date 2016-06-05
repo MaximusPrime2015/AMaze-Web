@@ -6,8 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author Max
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author 
  */
 @WebServlet(name = "MultiplayerServlet", urlPatterns = {"/secure/Multiplayer"})
 public class MultiplayerServlet extends HttpServlet {
@@ -15,13 +16,14 @@ public class MultiplayerServlet extends HttpServlet {
     /**
      * redirects to multiplayer page.
      * @param request http request
-     * @param response http response
+     * @param resp http response
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../secure/Multiplayer.jsp").forward(request, response);
+        request.getRequestDispatcher("../secure/Multiplayer.jsp")
+                                        .forward(request, resp);
     }
 }

@@ -1,7 +1,9 @@
 <%-- 
-    Document   : Register
-    Created on : May 21, 2016, 9:54:49 PM
-    Author     : Max
+    /**
+    * exe 3
+    * @author Michael Vassernis 319582888 vaserm3
+    * @author 
+    */
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

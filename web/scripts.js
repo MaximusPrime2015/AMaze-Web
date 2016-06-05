@@ -1,9 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author 
  */
 
+// validates the register page
 function validateRegistrationForm() {
     // get all input fields
     var usrNameInp = document.forms["registerForm"]["username"].value;
@@ -46,6 +47,7 @@ function validateRegistrationForm() {
     return false;
 }
 
+// clears the game name textbox
 function clearName(){
     var gameName = document.getElementById('game_name');
     gameName.style.backgroundColor = "white";

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +8,9 @@ import javax.servlet.http.HttpSession;
 import model.UserDatabase;
 
 /**
- *
- * @author Max/Michael
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author 
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
@@ -29,14 +24,15 @@ public class RegisterServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-                HttpSession session = request.getSession(false);
+    protected void doGet(HttpServletRequest request,
+        HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("name") != null) {
             response.sendRedirect("secure/Menu");
         }
         else {
-            request.getRequestDispatcher("Register.jsp").forward(request, response);
+            request.getRequestDispatcher("Register.jsp")
+                    .forward(request, response);
         }
     }
 
@@ -44,26 +40,27 @@ public class RegisterServlet extends HttpServlet {
      * pulls user details from session, creates a new entry in the database,
      * and redirects to menu page.
      * @param request http request
-     * @param response http response
+     * @param resp http response
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
+        // register the user in the data base
         UserDatabase db = UserDatabase.getInstance();
         db.addUser(request.getParameter("username"),
                     request.getParameter("password"),
                     request.getParameter("real_name"),
                     request.getParameter("email"),
                     request.getParameter("icons"));
-        
+        // create a session for him
         HttpSession session = request.getSession();
         session.setAttribute("username", request.getParameter("username"));
         session.setAttribute("name", request.getParameter("real_name"));
         session.setAttribute("email", request.getParameter("email"));
         session.setAttribute("pic", request.getParameter("icons"));
-        
-        response.sendRedirect("secure/Menu");
+        // send him to the menu
+        resp.sendRedirect("secure/Menu");
     }
 }

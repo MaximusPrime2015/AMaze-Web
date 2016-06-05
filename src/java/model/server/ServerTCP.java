@@ -7,8 +7,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Max
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author 
  */
 public class ServerTCP extends Observable implements Observer, Server {
 

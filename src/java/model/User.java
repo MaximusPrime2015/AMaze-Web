@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -15,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import model.server.ServerTCP;
 
 /**
- *
- * @author Max
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author 
  */
 public class User implements Observer {
 
@@ -125,13 +124,16 @@ public class User implements Observer {
     public void update(Observable o, Object arg) {
         if (this.async == null)
             return;
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(arg.toString().getBytes(StandardCharsets.UTF_8));
+        ByteArrayInputStream byteArrayInputStream 
+                = new ByteArrayInputStream(arg.toString()
+                        .getBytes(StandardCharsets.UTF_8));
         JsonReader jsonReader = Json.createReader(byteArrayInputStream);
         JsonObject object = jsonReader.readObject();
         jsonReader.close();
         
         AsyncContext asyncContext = this.async;
-        HttpServletResponse peer = (HttpServletResponse) asyncContext.getResponse();
+        HttpServletResponse peer =
+                            (HttpServletResponse) asyncContext.getResponse();
         peer.setContentType("application/json");
         try {
             peer.getWriter().write(object.toString());

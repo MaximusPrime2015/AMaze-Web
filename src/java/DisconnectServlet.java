@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
- * @author Max/Michael
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author 
  */
-@WebServlet(name = "DisconnectServlet", urlPatterns = {"/secure/DisconnectServlet"})
+@WebServlet(name = "DisconnectServlet",
+                            urlPatterns = {"/secure/DisconnectServlet"})
 public class DisconnectServlet extends HttpServlet {
 
     /**
@@ -21,7 +23,8 @@ public class DisconnectServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+        HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
         response.sendRedirect("../LoginServlet");
