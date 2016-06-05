@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +9,9 @@ import model.User;
 import model.UserDatabase;
 
 /**
- *
- * @author Max/Michael
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -20,19 +20,21 @@ public class LoginServlet extends HttpServlet {
      * redirects users to login screen if session has ended,
      * or redirects to Menu page after a successful login.
      * @param request http request.
-     * @param response http response.
+     * @param resp http response.
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         if (session != null && session.getAttribute("name") != null) {
-            response.sendRedirect("secure/Menu");
+            // already loged in -> send to menu
+            resp.sendRedirect("secure/Menu");
         }
         else {
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            // send to login page
+            request.getRequestDispatcher("Login.jsp").forward(request, resp);
         }
     }
 
@@ -40,28 +42,29 @@ public class LoginServlet extends HttpServlet {
      * validates user login details, and sets them in the session.
      * if user details are invalid they are redirected to login page.
      * @param request http request.
-     * @param response http response.
+     * @param resp http response.
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
-
         UserDatabase db = UserDatabase.getInstance();
+        // get the login info
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
+        // check if registerd
         if (db.validateUser(username, password)) {
             HttpSession session = request.getSession();
             User user = db.getUser(username);
             session.setAttribute("username", user.getUsername());
             session.setAttribute("name", user.getRealName());
             session.setAttribute("pic", user.getProfile());
-            response.sendRedirect("secure/Menu");
+            resp.sendRedirect("secure/Menu");
         } else {
+            // not registered -> send to login again
             request.setAttribute("error", true);
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            request.getRequestDispatcher("Login.jsp").forward(request, resp);
 
         }
     }

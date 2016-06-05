@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,10 +13,12 @@ import model.User;
 import model.UserDatabase;
 
 /**
- *
- * @author Max/Michael
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
  */
-@WebFilter(filterName = "LoginFilter", urlPatterns = {"/secure/*"}, asyncSupported=true)
+@WebFilter(filterName = "LoginFilter",
+                            urlPatterns = {"/secure/*"}, asyncSupported=true)
 public class LoginFilter implements Filter {
 
     /**
@@ -29,18 +30,22 @@ public class LoginFilter implements Filter {
      * @throws ServletException
      */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+        // filter enters to secured pages by Session checking
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         if (session != null && session.getAttribute("name") != null) {
-            User user = UserDatabase.getInstance().getUser(session.getAttribute("username").toString());
+            User user = UserDatabase.getInstance()
+                        .getUser(session.getAttribute("username").toString());
             if (user == null) {
+                // fake session
                 session.invalidate();
                 ((HttpServletResponse) response).sendRedirect("/LoginServlet");
             }
+            // user is ok
             chain.doFilter(request, response);
         } else {
+            // no session -> send to login page
             ((HttpServletResponse) response).sendRedirect("/LoginServlet");
         }
     }

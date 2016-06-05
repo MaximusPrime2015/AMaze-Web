@@ -12,31 +12,41 @@ import model.User;
 import model.UserDatabase;
 
 /**
- *
- * @author Max/Michael
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
  */
-@WebServlet(name = "GetMultiplayerMaze", urlPatterns = {"/secure/GetMultiplayerMaze"}, asyncSupported=true)
+@WebServlet(name = "GetMultiplayerMaze", urlPatterns
+                         = {"/secure/GetMultiplayerMaze"}, asyncSupported=true)
 public class GetMultiplayerMaze extends HttpServlet {
     
     private volatile boolean createNewName = true;
     private String oldName;
+    private User lastUser;
     
     /**
      * Sends a multiplayer game request to game server.
      * @param request Http request
-     * @param response Http response
+     * @param resp Http response
      * @throws ServletException
      * @throws IOException
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
-        String mazeName = GetRandomName();
         request.setAttribute("org.apache.catalina.ASYNC_SUPPORTED", true);
-        AsyncContext async = request.startAsync(request, response);
+        // get the async object
+        AsyncContext async = request.startAsync(request, resp);
         async.setTimeout(0);
         HttpSession session = ((HttpServletRequest) request).getSession(false);
-        User user = UserDatabase.getInstance().getUser(session.getAttribute("username").toString());
+        User user = UserDatabase.getInstance()
+                        .getUser(session.getAttribute("username").toString());
+        if (user == lastUser) {
+            createNewName = true;
+        }
+        lastUser = user;
+        String mazeName = GetRandomName();
+        // request a multiplayer maze with the async for later use
         user.requestMultiPlayerGame(mazeName, async);
     }
     
@@ -48,6 +58,7 @@ public class GetMultiplayerMaze extends HttpServlet {
      */
     private synchronized String GetRandomName() {
         if (createNewName) {
+            // generate a new random name
             createNewName = false;
             String name = "multi_maze_";
             Random rnd = new Random();
@@ -57,6 +68,7 @@ public class GetMultiplayerMaze extends HttpServlet {
             oldName = name;
             return name;
         } else {
+            // give out the old name
             createNewName = true;
             return oldName;
         }

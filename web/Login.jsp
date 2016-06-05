@@ -1,7 +1,9 @@
 <%-- 
-    Document   : Login
-    Created on : May 21, 2016, 6:04:10 PM
-    Author     : Max & Michael
+    /**
+    * exe 3
+    * @author Michael Vassernis 319582888 vaserm3
+    * @author Max Anisimov 322068487 anisimm
+    */
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

@@ -1,7 +1,9 @@
 <%-- 
-    Document   : Multiplayer
-    Created on : May 23, 2016, 6:18:40 PM
-    Author     : Max
+    /**
+    * exe 3
+    * @author Michael Vassernis 319582888 vaserm3
+    * @author Max Anisimov 322068487 anisimm
+    */
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -36,17 +38,11 @@ a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
         </div>
         <div id="darkRedAlphaShadows" style="position: absolute; left:20px;">
             <a href="Menu" class="button" margin-right:40px >Back To Menu</a>
-            <button id="hintBtn" class="button" margin-left:40px disabled onclick="drawHint()">Hint</button>
-            <br><br>
-            Game Name:
-            <input id="game_name" type="text" onclick="clearName()" />
-            <button id="connectBtn" class="button" onclick="requestMultiPlayerMaze()">Create</button>
-
         </div>
             
         <!-- BODY PART -->
         <center>
-            <br><br><br><br><br><br>
+            <br><br><br><br><br>
             <table>
                 <tr>
                     <th><canvas id="myCanvas" width="400" height="400" class="canvasStyle"/></th>

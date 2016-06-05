@@ -1,8 +1,9 @@
 package model.server;
 
 /**
- *
- * @author Max/Michael
+ * exe 3
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
  */
 public interface Server {
     /// <summary>
