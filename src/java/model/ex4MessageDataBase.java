@@ -6,6 +6,9 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
@@ -29,6 +32,19 @@ public class ex4MessageDataBase {
     public ex4Message addMessage(String msgTxt, ex4User user, String time) {
         ex4Message message = new ex4Message(msgTxt, user, time);
         this.messages.add(message);
+        
+        //hibatnate code
+        Message msg;
+        msg = new Message(msgTxt, user.getUsername(), time);
+
+        SessionFactory sessionFactory;
+        sessionFactory = new Configuration().configure().buildSessionFactory(); 
+        Session session = sessionFactory.openSession();
+        MessageManager manager = new MessageManager(session);
+
+        manager.saveMessage(msg);
+        session.flush();
+        
         return message;
     }
     

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
+import model.UserEx3;
 import model.UserDatabase;
 
 /**
@@ -33,7 +33,7 @@ public class GetMultiplayerMoves extends HttpServlet {
         AsyncContext async = request.startAsync(request, resp);
         async.setTimeout(0);
         HttpSession session = ((HttpServletRequest) request).getSession(false);
-        User user = UserDatabase.getInstance()
+        UserEx3 user = UserDatabase.getInstance()
                     .getUser(session.getAttribute("username").toString());
         // make the user wait with long pollng for the opponents move
         user.requestOthersMove(async);
@@ -52,7 +52,7 @@ public class GetMultiplayerMoves extends HttpServlet {
         String move = request.getParameter("move");
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         // get user from session
-        User user = UserDatabase.getInstance()
+        UserEx3 user = UserDatabase.getInstance()
                         .getUser(session.getAttribute("username").toString());
         // send the move to the server
         user.makeMove(move);

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="model.Message" table="messages">
+    <property column="content" length="120" name="content" type="java.lang.String"/>
+    <property column="username" length="20" name="user" type="java.lang.String"/>
+    <property column="time" length="20" name="time" type="java.lang.String"/>
+  </class>
+</hibernate-mapping>

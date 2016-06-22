@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
+import model.UserEx3;
 import model.UserDatabase;
 
 /**
@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
         // check if registerd
         if (db.validateUser(username, password)) {
             HttpSession session = request.getSession();
-            User user = db.getUser(username);
+            UserEx3 user = db.getUser(username);
             session.setAttribute("username", user.getUsername());
             session.setAttribute("name", user.getRealName());
             session.setAttribute("pic", user.getProfile());

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="model.User" table="users">
+    <property column="username" length="20" name="username" type="java.lang.String"/>
+    <property column="password" length="20" name="password" type="java.lang.String"/>
+    <property column="name" length="20" name="name" type="java.lang.String"/>
+    <property column="email" length="40" name="email" type="java.lang.String"/>
+    <property column="icon_num" length="1" name="icon" type="java.lang.Integer"/>
+  </class>
+</hibernate-mapping>

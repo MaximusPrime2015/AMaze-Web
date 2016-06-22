@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
+import model.UserEx3;
 import model.UserDatabase;
 
 /**
@@ -35,7 +35,7 @@ public class LoginFilter implements Filter {
         // filter enters to secured pages by Session checking
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         if (session != null && session.getAttribute("name") != null) {
-            User user = UserDatabase.getInstance()
+            UserEx3 user = UserDatabase.getInstance()
                         .getUser(session.getAttribute("username").toString());
             if (user == null) {
                 // fake session

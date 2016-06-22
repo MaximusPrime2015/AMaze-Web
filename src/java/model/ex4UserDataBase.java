@@ -1,6 +1,9 @@
 package model;
 
 import java.util.HashMap;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
@@ -37,5 +40,17 @@ public class ex4UserDataBase {
         // add the user
         ex4User user = new ex4User(username, password, name, email, icon);
         this.users.put(username, user);
+        
+        
+        //hibatnate code
+        User userSql = new User(username, password, name, email, icon);
+
+        SessionFactory sessionFactory;
+        sessionFactory = new Configuration().configure().buildSessionFactory(); 
+        Session session = sessionFactory.openSession();
+        UserManager manager = new UserManager(session);
+
+        manager.saveUser(userSql);
+        session.flush();
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * @author Max Anisimov 322068487 anisimm
  */
 public class UserDatabase {
-    private final List<User> users;
+    private final List<UserEx3> users;
     private static UserDatabase instance = null;
     
     /**
@@ -39,7 +39,7 @@ public class UserDatabase {
      * adds user to database.
      * @param user
      */
-    public void addUser(User user){
+    public void addUser(UserEx3 user){
         this.users.add(user);
     }
     
@@ -53,7 +53,7 @@ public class UserDatabase {
      */
     public void addUser(String name, String password, String realName,
             String email, String profile){
-        this.users.add(new User(name, password, realName, email, profile));
+        this.users.add(new UserEx3(name, password, realName, email, profile));
     }
     
     /**
@@ -61,8 +61,8 @@ public class UserDatabase {
      * @param username
      * @return
      */
-    public User getUser(String username) {
-        for (User user : this.users) {
+    public UserEx3 getUser(String username) {
+        for (UserEx3 user : this.users) {
             if (user.compareUsername(username))
                 return user;
         }
@@ -73,7 +73,7 @@ public class UserDatabase {
      * returns users list.
      * @return
      */
-    public List<User> getList(){
+    public List<UserEx3> getList(){
         return this.users;
     }
     
@@ -84,7 +84,7 @@ public class UserDatabase {
      * @return
      */
     public boolean validateUser(String name, String password){
-        User user = this.getUser(name);
+        UserEx3 user = this.getUser(name);
         if(user == null) return false;
         return password.equals(user.getPassword());
     }
@@ -94,8 +94,8 @@ public class UserDatabase {
      * @param user
      * @return
      */
-    public boolean validateUser(User user){
-        User auxUser = this.getUser(user.getUsername());
+    public boolean validateUser(UserEx3 user){
+        UserEx3 auxUser = this.getUser(user.getUsername());
         if(auxUser == null) return false;
         return user.getPassword().equals(auxUser.getPassword());
     }
