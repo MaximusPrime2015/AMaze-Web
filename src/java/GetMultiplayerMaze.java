@@ -14,7 +14,7 @@ import model.UserDatabase;
 /**
  * exe 3
  * @author Michael Vassernis 319582888 vaserm3
- * @author 
+ * @author Max Anisimov 322068487 anisimm
  */
 @WebServlet(name = "GetMultiplayerMaze", urlPatterns
                          = {"/secure/GetMultiplayerMaze"}, asyncSupported=true)

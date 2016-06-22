@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * exe 3
  * @author Michael Vassernis 319582888 vaserm3
- * @author 
+ * @author Max Anisimov 322068487 anisimm 
  */
 @WebServlet(name = "MultiplayerServlet", urlPatterns = {"/secure/Multiplayer"})
 public class MultiplayerServlet extends HttpServlet {

@@ -15,7 +15,7 @@ import model.server.ServerTCP;
 /**
  * exe 3
  * @author Michael Vassernis 319582888 vaserm3
- * @author 
+ * @author Max Anisimov 322068487 anisimm
  */
 public class User implements Observer {
 
@@ -28,6 +28,14 @@ public class User implements Observer {
     private ServerTCP connection = null;
     private AsyncContext async;
 
+    /**
+     * constructor.
+     * @param username
+     * @param password
+     * @param realName
+     * @param email
+     * @param profile
+     */
     public User(String username, String password, String realName,
             String email, String profile) {
         this.username = username;
@@ -37,26 +45,51 @@ public class User implements Observer {
         this.profile = profile;
     }
 
+    /**
+     * getter for username.
+     * @return username
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     * getter for password.
+     * @return password
+     */
     public String getPassword() {
         return this.password;
     }
 
+    /**
+     * getter for real name.
+     * @return real name.
+     */
     public String getRealName() {
         return this.realName;
     }
 
+    /**
+     * getter for email
+     * @return email
+     */
     public String getEmail() {
         return this.email;
     }
 
+    /**
+     * getter for profile
+     * @return profile
+     */
     public String getProfile() {
         return this.profile;
     }
 
+    /**
+     * compares usernames.
+     * @param username
+     * @return result of equals function on a given username and member.
+     */
     public boolean compareUsername(String username) {
         return this.username.equals(username);
     }
@@ -84,6 +117,11 @@ public class User implements Observer {
         return false;
     }
 
+    /**
+     * sends a multiplayer game request.
+     * @param mazeName
+     * @param async
+     */
     public void requestMultiPlayerGame(String mazeName, AsyncContext async) {
         if (connection == null) {
             try {
@@ -97,6 +135,10 @@ public class User implements Observer {
         connection.sendRequest("multiplayer " + mazeName);
     }
 
+    /**
+     * adds self to server's observers to be notified of move info.
+     * @param async
+     */
     public void requestOthersMove(AsyncContext async) {
         if (connection == null) {
             try {
@@ -108,6 +150,11 @@ public class User implements Observer {
         }
         this.async = async;
     }
+
+    /**
+     * sends movement info to game server.
+     * @param move
+     */
     public void makeMove(String move) {
         if (connection == null) {
             try {
@@ -146,6 +193,9 @@ public class User implements Observer {
         this.async = null;
     }
 
+    /**
+     * closes connection.
+     */
     public void disconnect() {
         connection = null;
     }

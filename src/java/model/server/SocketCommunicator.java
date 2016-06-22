@@ -9,7 +9,7 @@ import java.util.Observable;
 /**
  * exe 3
  * @author Michael Vassernis 319582888 vaserm3
- * @author 
+ * @author Max Anisimov 322068487 anisimm
  */
 public class SocketCommunicator extends Observable{
     private Socket server;
@@ -17,6 +17,12 @@ public class SocketCommunicator extends Observable{
     private DataOutputStream outToServer;
     private DataInputStream inFromServer;
 
+    /**
+     * constructor.
+     * @param serverIP string ip
+     * @param serverPort port number
+     * @throws IOException
+     */
     public SocketCommunicator(String serverIP, int serverPort) throws IOException {
         this.server = new Socket(serverIP, serverPort);
         this.outToServer = new DataOutputStream(server.getOutputStream());
@@ -25,24 +31,18 @@ public class SocketCommunicator extends Observable{
         this.listenerThread.start();
     }
 
+    /**
+     * @return true
+     */
     public boolean establishConnection() {
-//        if (this.server.isConnected()) {
-//            return true;
-//        }
-//        if (this.listenerThread != null) {
-//            return false;
-//        }
-//
-//        try {
-//            this.listenerThread = new Thread(new RunnableListener(this));
-//            this.listenerThread.start();
-//            return true;
-//        } catch (Exception ex) {
-//            return false;
-//        }
         return true;
     }
 
+    /**
+     * sends request to server.
+     * @param request
+     * @return
+     */
     public boolean SendRequest(String request) {
         if (this.server.isConnected() && request != null) {
             try {
@@ -54,6 +54,9 @@ public class SocketCommunicator extends Observable{
         return false;
     }
 
+    /**
+     * awaits responses and notifies observers when response arrives.
+     */
     public void listenToResponses() {
         String response;
         
@@ -84,6 +87,11 @@ public class SocketCommunicator extends Observable{
     /// Closes the connection with the server and stops listenning.
     /// </summary>
     /// <returns></returns>
+
+    /**
+     * closes server.
+     * @return true if closed successfully. false otherwise.
+     */
     public boolean close() {
         try {
             this.server.close();

@@ -1,7 +1,7 @@
 /**
  * exe 3
  * @author Michael Vassernis 319582888 vaserm3
- * @author 
+ * @author Max Anisimov 322068487 anisimm
  */
 
 // prints loading messages on the canvases of the two players
