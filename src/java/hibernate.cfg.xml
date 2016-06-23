@@ -1,30 +1,19 @@
-<?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-<session-factory>
-<property name="connection.url">
-jdbc:mysql://localhost:3306/amaze_sql
-</property>
-<property name="connection.driver_class">
-com.mysql.jdbc.Driver
-</property>
-<property name="connection.username">
-advprog
-</property>
-<property name="connection.password">
-adv
-</property>
-<!-- Set AutoCommit to true -->
-<property name="connection.autocommit">
-true
-</property>
-<!-- SQL Dialect to use. Dialects are database specific -->
-<property name="dialect">
-org.hibernate.dialect.MySQLDialect
-</property>
-<!-- Mapping files -->
-<mapping resource="User.hbm.xml" />
-<mapping resource="Message.hbm.xml" />
-</session-factory>
+  <session-factory>
+    <!-- Database connection settings -->
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/amaze_sql</property>
+    <property name="hibernate.connection.username">advprog</property>
+    <property name="hibernate.connection.password">adv</property>
+    <property name="hibernate.connection.provider_class">
+                            org.hibernate.connection.C3P0ConnectionProvider</property>
+    <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="show_sql">true</property>
+    
+    <mapping resource="User.hbm.xml"/>
+    <mapping resource="Message.hbm.xml"/>
+  </session-factory>
 </hibernate-configuration>

@@ -1,6 +1,5 @@
 package model;
 
-import java.util.HashMap;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -11,10 +10,13 @@ import org.hibernate.cfg.Configuration;
  */
 public class ex4UserDataBase {
     
-    private HashMap<String, ex4User> users;
+    private SessionFactory sessionFactory;
+    
+    //private HashMap<String, ex4User> users;
     
     private ex4UserDataBase() {
-        this.users = new HashMap<>();
+        //this.users = new HashMap<>();
+        this.sessionFactory = SessionFactoryHolder.sessionFactory;
     }
     
     private static class Singleton {
@@ -26,31 +28,61 @@ public class ex4UserDataBase {
     }
     
     public boolean checkIfUserExists(String username) {
-        return this.users.containsKey(username);
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        boolean ret = false;
+        try {
+            User user = (User) session.get(User.class, username);
+            ret = (user != null);
+        } catch (Exception ex) {
+            session.getTransaction().rollback();
+        }
+        session.getTransaction().commit();
+        session.close();
+        //return this.users.containsKey(username);
+        return ret;
     }
     
     public ex4User getUser(String username) {
-        return this.users.get(username);
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        ex4User ret = null;
+        try {
+            User user = (User) session.get(User.class, username);
+            if (user != null) {
+                ret = new ex4User(user.getUsername(),
+                        user.getPassword(),
+                        user.getName(),
+                        user.getEmail(), user.getIcon());
+            }
+        } catch (Exception ex) {
+            session.getTransaction().rollback();
+        }
+        session.getTransaction().commit();
+        session.close();
+        //return this.users.get(username);
+        return ret;
     }
     
     public void addUser(String username, String password, String name,
             String email, int icon) throws Exception {
         if (this.checkIfUserExists(username))
             throw new Exception("user already in data base");
-        // add the user
-        ex4User user = new ex4User(username, password, name, email, icon);
-        this.users.put(username, user);
+//        // add the user
+//        ex4User user = new ex4User(username, password, name, email, icon);
+//        this.users.put(username, user);
         
-        
-        //hibatnate code
+        // hibatnate code
         User userSql = new User(username, password, name, email, icon);
-
-        SessionFactory sessionFactory;
-        sessionFactory = new Configuration().configure().buildSessionFactory(); 
+        
         Session session = sessionFactory.openSession();
-        UserManager manager = new UserManager(session);
-
-        manager.saveUser(userSql);
-        session.flush();
+        session.beginTransaction();
+        try {
+            session.persist(userSql);
+        } catch (Exception ex) {
+            session.getTransaction().rollback();
+        }
+        session.getTransaction().commit();
+        session.close();
     }
 }

@@ -1,9 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping>
-  <class name="model.Message" table="messages">
-    <property column="content" length="120" name="content" type="java.lang.String"/>
-    <property column="username" length="20" name="user" type="java.lang.String"/>
-    <property column="time" length="20" name="time" type="java.lang.String"/>
-  </class>
+    <class name="model.Message" table="messages">
+        <id name="time" type="java.lang.String" column="time">
+            <generator class="assigned"/>
+        </id>
+        <property name="user" column="username" type="java.lang.String"/>
+        <property name="content" column="content" type="java.lang.String"/>
+   </class>
 </hibernate-mapping>
