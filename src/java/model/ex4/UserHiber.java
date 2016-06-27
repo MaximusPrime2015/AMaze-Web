@@ -24,7 +24,8 @@ public class UserHiber {
      * @param email the email of the user
      * @param icon the icon id of the user
      */
-    public UserHiber(String username, String password, String name, String email, int icon) {
+    public UserHiber(String username, String password, String name,
+                                            String email, int icon) {
         this.username = username;
         this.password = password;
         this.name = name;

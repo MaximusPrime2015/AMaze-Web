@@ -18,7 +18,8 @@ import model.ex4.MessageDataBase;
 public class Ex4GetMessages extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                                    throws ServletException, IOException {
         this.doPost(req, resp);
     }
     

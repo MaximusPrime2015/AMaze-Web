@@ -22,7 +22,8 @@ import model.ex4.UserDataBase;
 public class Ex4AddMessage extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                                    throws ServletException, IOException {
         this.doPost(req, resp);
     }
     
@@ -38,11 +39,15 @@ public class Ex4AddMessage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
         String message = request.getParameter("message");
+        // get the current time
         String time = new SimpleDateFormat("HH:mm:ss").format(
                                 Calendar.getInstance().getTime());
+        // get the users and messages databases
         UserDataBase userDataBase = UserDataBase.getDataBase();
         MessageDataBase messageDataBase = MessageDataBase.getDataBase();
-        User user = userDataBase.getUser((String)request.getSession().getAttribute("username"));
+        User user = userDataBase.getUser((String)request.getSession()
+                                                .getAttribute("username"));
+        // add the message to the database
         Message msg = messageDataBase.addMessage(message, user, time);
         
         // write back the json response

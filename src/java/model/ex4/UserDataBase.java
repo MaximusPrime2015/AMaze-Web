@@ -28,37 +28,44 @@ public class UserDataBase {
     }
     
     /**
-     *
-     * @param username
-     * @return
+     * check if the user Exists in the data base
+     * @param username the user to check
+     * @return true if in the database
      */
     public boolean checkIfUserExists(String username) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         boolean ret = false;
+        // attempt to get the user from mySql
         try {
-            UserHiber user = (UserHiber) session.get(UserHiber.class, username);
+            UserHiber user = (UserHiber) session.get(UserHiber.class,
+                                                    username);
+            // return value is if the user was returned
             ret = (user != null);
         } catch (Exception ex) {
             session.getTransaction().rollback();
         }
+        // close the session
         session.getTransaction().commit();
         session.close();
         return ret;
     }
     
     /**
-     *
-     * @param username
-     * @return
+     * gets the user from the data base with the given username
+     * @param username the user to search
+     * @return the User object
      */
     public User getUser(String username) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         User ret = null;
         try {
-            UserHiber user = (UserHiber) session.get(UserHiber.class, username);
+            // attempt to get the user from mySql
+            UserHiber user = (UserHiber) session.get(UserHiber.class,
+                                                            username);
             if (user != null) {
+                // user was found , create a User object from him
                 ret = new User(user.getUsername(),
                         user.getPassword(),
                         user.getName(),
@@ -67,33 +74,38 @@ public class UserDataBase {
         } catch (Exception ex) {
             session.getTransaction().rollback();
         }
+        // close the session
         session.getTransaction().commit();
         session.close();
         return ret;
     }
     
     /**
-     *
-     * @param username
-     * @param password
-     * @param name
-     * @param email
-     * @param icon
-     * @throws Exception
+     * adds the given user to the data base
+     * @param username the username
+     * @param password the password
+     * @param name the name of the user
+     * @param email the email of the user
+     * @param icon the icon id of the user
+     * @throws Exception if already in the database
      */
     public void addUser(String username, String password, String name,
             String email, int icon) throws Exception {
         if (this.checkIfUserExists(username))
+            // can't add existing user to the database
             throw new Exception("user already in data base");
-        UserHiber userSql = new UserHiber(username, password, name, email, icon);
-        
+        UserHiber userSql = new UserHiber(username, password, name,
+                                                        email, icon);
+        // open mySql session
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         try {
+            // add the user to mySql
             session.persist(userSql);
         } catch (Exception ex) {
             session.getTransaction().rollback();
         }
+        // close the session
         session.getTransaction().commit();
         session.close();
     }

@@ -22,7 +22,8 @@ import model.ex4.UserDataBase;
 public class Ex4Register extends HttpServlet {
     
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                                    throws ServletException, IOException {
         this.doPost(req, resp);
     }
     
@@ -55,7 +56,8 @@ public class Ex4Register extends HttpServlet {
                 // add the user
                 userDataBase.addUser(username, password, name, email, icon);
             } catch (Exception ex) {
-                Logger.getLogger(Ex4Register.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Ex4Register.class.getName())
+                        .log(Level.SEVERE, null, ex);
                 return;
             }
             // create a session for him

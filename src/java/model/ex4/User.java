@@ -1,30 +1,62 @@
 package model.ex4;
 
 /**
- *
+ * the User class
  * @author user
  */
 public class User {
-    private String username;
-    private String password;
-    private String email;
-    private String name;
-    private int icon_code;
+    private final String username;
+    private final String password;
+    private final String email;
+    private final String name;
+    private final int iconCode;
     
+    /**
+     * generates a new User object
+     * @param username the username
+     * @param password the password
+     * @param name the name
+     * @param email the email
+     * @param icon the icon id
+     */
     public User(String username, String password, String name, String email,
                     int icon) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
-        this.icon_code = icon;
+        this.iconCode = icon;
     }
     
+    /**
+     * gets the username
+     * @return the username
+     */
     public String getUsername() { return this.username; }
+
+    /**
+     * gets the name of the user
+     * @return the name
+     */
     public String getName() { return this.name; }
+
+    /**
+     * get the email of the user
+     * @return the email
+     */
     public String getEmail() { return this.email; }
-    public int getIcon() { return this.icon_code; }
+
+    /**
+     * gets the icon id of the user
+     * @return the icon id
+     */
+    public int getIcon() { return this.iconCode; }
     
+    /**
+     * checks if the given password is the user's password
+     * @param password the login attempt password
+     * @return true if passwords match
+     */
     public boolean checkPassword(String password) {
         return this.password.equals(password);
     }

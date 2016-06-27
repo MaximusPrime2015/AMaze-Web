@@ -20,7 +20,8 @@ import model.ex4.UserDataBase;
 public class Ex4Login extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                                    throws ServletException, IOException {
         this.doPost(req, resp);
     }
     

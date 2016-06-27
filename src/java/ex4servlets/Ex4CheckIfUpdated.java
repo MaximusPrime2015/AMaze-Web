@@ -19,7 +19,8 @@ import model.ex4.MessageDataBase;
 public class Ex4CheckIfUpdated extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                                    throws ServletException, IOException {
         this.doPost(req, resp);
     }
     
@@ -34,12 +35,14 @@ public class Ex4CheckIfUpdated extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
-        int numMsgs = Integer.parseInt(request.getParameter("currentNumOfMessages"));
+        int numMsgs = Integer.parseInt(
+                            request.getParameter("currentNumOfMessages"));
         MessageDataBase messageDataBase = MessageDataBase.getDataBase();
         
         // write back the json response
         JsonObject jsonResponse = Json.createObjectBuilder()
-                                    .add("isUpdated", numMsgs == messageDataBase.getSize()).build();
+                    .add("isUpdated",
+                    numMsgs == messageDataBase.getSize()).build();
         resp.setContentType("application/json");
         resp.getWriter().write(jsonResponse.toString());
         resp.getWriter().flush();

@@ -41,14 +41,18 @@ public class MessageDataBase {
      */
     public Message addMessage(String msgTxt, User user, String time) {
         Message message = new Message(msgTxt, user, time);
-        MessageHiber msgSql = new MessageHiber(msgTxt, user.getUsername(), time);
+        MessageHiber msgSql = new MessageHiber(msgTxt, user.getUsername(),
+                                                        time);
+        // open session with mySql
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         try {
+            // add the message to mySql
             session.persist(msgSql);
         } catch (Exception ex) {
             session.getTransaction().rollback();
         }
+        // close the session
         session.getTransaction().commit();
         session.close();
         
@@ -61,7 +65,9 @@ public class MessageDataBase {
      */
     public int getSize() {
         Session session = sessionFactory.openSession();
-        int size = ((Long)session.createQuery("SELECT COUNT(*) FROM Message").uniqueResult()).intValue();
+        // make a counter HSL query
+        int size = ((Long)session.createQuery("SELECT COUNT(*) FROM Message")
+                                                .uniqueResult()).intValue();
         session.close();
         return size;
     }
@@ -73,16 +79,23 @@ public class MessageDataBase {
      */
     public JsonObject getMessages(int numMessagesToRead) {
         JsonArrayBuilder jsonBuilder = Json.createArrayBuilder();
+        // get the size of the database
         int size = this.getSize();
+        // calculate the off set
         int offset = Math.max(0, size - numMessagesToRead);
         Session session = sessionFactory.openSession();
-        List<MessageHiber> messages = (List<MessageHiber>) session.createQuery("FROM Message")
-                .setFirstResult(offset).setMaxResults(numMessagesToRead).list();
+        // get the last [numMessagesToRead] messages from mySql
+        List<MessageHiber> messages
+                = (List<MessageHiber>) session.createQuery("FROM Message")
+                .setFirstResult(offset).setMaxResults(numMessagesToRead)
+                .list();
         java.util.Collections.reverse(messages);
+        // create the json result
         for (MessageHiber m : messages) {
             User user = UserDataBase.getDataBase().getUser(m.getUser());
             Message msg = new Message(m.getContent(), user, m.getTime());
-            jsonBuilder.add(Json.createObjectBuilder().add("msg", Json.createObjectBuilder()
+            jsonBuilder.add(Json.createObjectBuilder().add("msg",
+                                                    Json.createObjectBuilder()
                     .add("message", msg.getMessage())
                     .add("time", msg.getTime())
                     .add("username", msg.getUser().getUsername())
