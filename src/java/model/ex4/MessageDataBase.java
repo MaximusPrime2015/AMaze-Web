@@ -66,7 +66,8 @@ public class MessageDataBase {
     public int getSize() {
         Session session = sessionFactory.openSession();
         // make a counter HSL query
-        int size = ((Long)session.createQuery("SELECT COUNT(*) FROM Message")
+        int size = ((Long)session
+                .createQuery("SELECT COUNT(*) FROM MessageHiber")
                                                 .uniqueResult()).intValue();
         session.close();
         return size;
@@ -86,7 +87,7 @@ public class MessageDataBase {
         Session session = sessionFactory.openSession();
         // get the last [numMessagesToRead] messages from mySql
         List<MessageHiber> messages
-                = (List<MessageHiber>) session.createQuery("FROM Message")
+                = (List<MessageHiber>) session.createQuery("FROM MessageHiber")
                 .setFirstResult(offset).setMaxResults(numMessagesToRead)
                 .list();
         java.util.Collections.reverse(messages);
