@@ -12,7 +12,7 @@ import model.ex4.MessageDataBase;
 /**
  * exe 3
  * @author Michael Vassernis 319582888 vaserm3
- * @author 
+ * @author Max Anisimov 322068487 anisimm
  */
 @WebServlet(name = "Ex4GetMessages", urlPatterns = {"/ex4GetMessages"})
 public class Ex4GetMessages extends HttpServlet {

@@ -2,7 +2,8 @@ package model.ex4;
 
 /**
  * the class MessageHiber
- * @author user
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
  */
 public class MessageHiber {
     private String content;

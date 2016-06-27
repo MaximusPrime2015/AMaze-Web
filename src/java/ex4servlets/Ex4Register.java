@@ -16,7 +16,7 @@ import model.ex4.UserDataBase;
 /**
  * exe 3
  * @author Michael Vassernis 319582888 vaserm3
- * @author 
+ * @author Max Anisimov 322068487 anisimm
  */
 @WebServlet(name = "Ex4Register", urlPatterns = {"/ex4Register"})
 public class Ex4Register extends HttpServlet {

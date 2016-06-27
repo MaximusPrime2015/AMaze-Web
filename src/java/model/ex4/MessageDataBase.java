@@ -10,7 +10,8 @@ import org.hibernate.SessionFactory;
 
 /**
  * the class Message Data Base
- * @author user
+ * @author Michael Vassernis 319582888 vaserm3
+ * @author Max Anisimov 322068487 anisimm
  */
 public class MessageDataBase {
     private final SessionFactory sessionFactory;
