@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.UserEx3;
-import model.UserDatabase;
+import model.UserDatabaseEx3;
 
 /**
  * exe 3
@@ -39,7 +39,7 @@ public class GetMultiplayerMaze extends HttpServlet {
         AsyncContext async = request.startAsync(request, resp);
         async.setTimeout(0);
         HttpSession session = ((HttpServletRequest) request).getSession(false);
-        UserEx3 user = UserDatabase.getInstance()
+        UserEx3 user = UserDatabaseEx3.getInstance()
                         .getUser(session.getAttribute("username").toString());
         if (user == lastUser) {
             createNewName = true;

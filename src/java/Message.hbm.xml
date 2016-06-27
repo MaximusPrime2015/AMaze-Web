@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="model.Message" table="messages">
+    <class name="model.ex4.MessageHiber" table="messages">
         <id name="time" type="java.lang.String" column="time">
             <generator class="assigned"/>
         </id>

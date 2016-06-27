@@ -1,17 +1,17 @@
-package model;
+package model.ex4;
 
 /**
  *
  * @author user
  */
-public class ex4User {
+public class User {
     private String username;
     private String password;
     private String email;
     private String name;
     private int icon_code;
     
-    public ex4User(String username, String password, String name, String email,
+    public User(String username, String password, String name, String email,
                     int icon) {
         this.username = username;
         this.password = password;

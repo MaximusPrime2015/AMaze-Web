@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.UserEx3;
-import model.UserDatabase;
+import model.UserDatabaseEx3;
 
 /**
  * exe 3
@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
-        UserDatabase db = UserDatabase.getInstance();
+        UserDatabaseEx3 db = UserDatabaseEx3.getInstance();
         // get the login info
         String username = request.getParameter("username");
         String password = request.getParameter("password");

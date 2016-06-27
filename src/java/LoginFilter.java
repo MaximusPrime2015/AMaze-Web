@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.UserEx3;
-import model.UserDatabase;
+import model.UserDatabaseEx3;
 
 /**
  * exe 3
@@ -35,7 +35,7 @@ public class LoginFilter implements Filter {
         // filter enters to secured pages by Session checking
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         if (session != null && session.getAttribute("name") != null) {
-            UserEx3 user = UserDatabase.getInstance()
+            UserEx3 user = UserDatabaseEx3.getInstance()
                         .getUser(session.getAttribute("username").toString());
             if (user == null) {
                 // fake session

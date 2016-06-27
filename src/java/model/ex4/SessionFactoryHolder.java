@@ -1,4 +1,4 @@
-package model;
+package model.ex4;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

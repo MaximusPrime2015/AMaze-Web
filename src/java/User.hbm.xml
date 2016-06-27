@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="model.User" table="users">
+    <class name="model.ex4.UserHiber" table="users">
       <id name="username" type="java.lang.String" column="username">
          <generator class="assigned"/>
       </id>

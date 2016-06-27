@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.UserDatabase;
+import model.UserDatabaseEx3;
 
 /**
  * exe 3
@@ -48,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse resp)
             throws ServletException, IOException {
         // register the user in the data base
-        UserDatabase db = UserDatabase.getInstance();
+        UserDatabaseEx3 db = UserDatabaseEx3.getInstance();
         db.addUser(request.getParameter("username"),
                     request.getParameter("password"),
                     request.getParameter("real_name"),

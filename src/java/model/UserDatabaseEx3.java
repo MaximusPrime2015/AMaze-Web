@@ -13,14 +13,14 @@ import java.util.List;
  * @author Michael Vassernis 319582888 vaserm3
  * @author Max Anisimov 322068487 anisimm
  */
-public class UserDatabase {
+public class UserDatabaseEx3 {
     private final List<UserEx3> users;
-    private static UserDatabase instance = null;
+    private static UserDatabaseEx3 instance = null;
     
     /**
      * private constructor for singleton.
      */
-    private UserDatabase(){
+    private UserDatabaseEx3(){
         this.users = new ArrayList();
     }
     
@@ -28,9 +28,9 @@ public class UserDatabase {
      * get Instance method for singleton.
      * @return
      */
-    public synchronized static UserDatabase getInstance(){
-        if (UserDatabase.instance == null) {
-            instance = new UserDatabase();
+    public synchronized static UserDatabaseEx3 getInstance(){
+        if (UserDatabaseEx3.instance == null) {
+            instance = new UserDatabaseEx3();
         }
         return instance;
     }
